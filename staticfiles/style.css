@@ -1,0 +1,56 @@
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+}
+
+header {
+    width: 100%;
+    height: 5%;
+}
+
+.fa-sign-out-alt {
+    width: 5%;
+    height: 5%;
+    float: right;
+}
+
+.fa-user {
+    width: 100px;
+    height: 80%;
+    float: right;
+}
+
+.headerIconColumn {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+}
+.logoIcon {
+    width: 20%;
+    height: 50%;
+    margin-top: 5%;
+}
+
+#logoPurBeurre {
+    width: 20%;
+    height: 80%;
+}
+
+#brandText {
+    text-align: left;
+}
+
+#headerSearchInput {
+    background-color: lightgrey;
+    margin-top: 5%;
+}
+
+#searchColumn {
+    text-align: right;
+}
+
