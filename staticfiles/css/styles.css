@@ -10004,57 +10004,52 @@ html {
   height: 100%;
 }
 
-header {
-  width: 100%;
-  height: 5%;
-}
-header .container-fluid, header .container-sm, header .container-md, header .container-lg, header .container-xl {
-  width: 100%;
-  height: 100%;
-  padding: 0;
-}
-header .container-fluid .row, header .container-sm .row, header .container-md .row, header .container-lg .row, header .container-xl .row {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-}
-header .container-fluid .row .logoIcon, header .container-sm .row .logoIcon, header .container-md .row .logoIcon, header .container-lg .row .logoIcon, header .container-xl .row .logoIcon {
-  margin-top: 2px;
-  width: 10%;
-  max-height: 31.13px;
-}
-header .container-fluid .row .col-md-3 #brandText, header .container-sm .row .col-md-3 #brandText, header .container-md .row .col-md-3 #brandText, header .container-lg .row .col-md-3 #brandText, header .container-xl .row .col-md-3 #brandText {
-  font-weight: 300;
-  font-family: "Open Sans";
-  font-style: normal;
-}
-header .container-fluid .row .col-md-3 #logoCarrot, header .container-sm .row .col-md-3 #logoCarrot, header .container-md .row .col-md-3 #logoCarrot, header .container-lg .row .col-md-3 #logoCarrot, header .container-xl .row .col-md-3 #logoCarrot {
-  text-align: center;
-  margin-left: 30%;
-  margin-right: 30%;
-}
-
-main {
-  width: 100%;
-  height: 100%;
-  max-height: 800px;
-}
-main .container-fluid, main .container-sm, main .container-md, main .container-lg, main .container-xl {
-  background-size: cover;
-  background-image: url("background-mainContainer.jpg");
-  background-position: center;
-  width: 100%;
-  height: 100%;
-}
-main .container-fluid h1, main .container-sm h1, main .container-md h1, main .container-lg h1, main .container-xl h1, main .container-fluid h2, main .container-sm h2, main .container-md h2, main .container-lg h2, main .container-xl h2 {
-  font-family: "Open Sans";
-  color: #f4623a;
-}
-
 hr.divider {
   max-width: 3.25rem;
   border-width: 0.2rem;
   border-color: #f4623a;
+}
+
+.product {
+  width: 50px;
+}
+
+.products {
+  position: relative;
+}
+
+.rnut li {
+  list-style-type: none;
+}
+
+#pur-beurre-icon {
+  background-image: url("../assets/img/logo_pur_beurre.png");
+  display: block;
+}
+
+#carrot-logo {
+  width: 25px;
+  height: 25px;
+}
+
+.nutriscore {
+  width: 200px;
+}
+
+.score {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: green;
+}
+
+.masthead-outside-home {
+  min-height: 0 !important;
+  max-height: 30%;
+}
+
+.column-name {
+  width: 50%;
 }
 
 hr.light {

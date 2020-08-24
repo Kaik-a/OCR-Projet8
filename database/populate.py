@@ -17,19 +17,25 @@ def populate_product(products: List) -> None:
             list_product.append(
                 Product(
                     uuid4(),
-                    product['brands'],
-                    product['category_tags'],
-                    product['nutrition_grade'],
-                    product['product_name_fr'],
-                    product['image_url'],
-                    product['url'],
+                    product.get('brands'),
+                    product.get('category_tags'),
+                    [{key: value} for key, value in product.get('nutriments').items()
+                     if key.find('100g') != -1],
+                    product.get('nutrition_grade_fr'),
+                    product.get('product_name_fr'),
+                    product.get('url_img'),
+                    product.get('url'),
                 )
             )
         except TypeError:
             continue
 
     for product_object in list_product:
-        product_object.save()
+        if product_object.brands and product_object.category_tags \
+            and product_object.nutriments and product_object.nutrition_grade_fr \
+            and product_object.product_name_fr and product_object.url_img \
+                and product_object.url:
+            product_object.save()
 
 
 def populate_categories(categories: List) -> None:

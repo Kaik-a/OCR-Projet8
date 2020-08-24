@@ -11,7 +11,7 @@ class Product(models.Model):
         id (UUID): Id of the product.
         brands (str): Brands where the product can be found.
         category_tags (str): Categories product belongs to.
-        nutrition_grade (str): A to E classification for healthfulness.
+        nutrition_grade_fr (str): A to E classification for healthfulness.
         product_name_fr (str): Name of the product in french.
         url_img (str): URL of the related image on OFF.
         url (str): URL on OFF
@@ -19,7 +19,8 @@ class Product(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
     brands = models.CharField(max_length=100)
     category_tags = models.CharField(max_length=500)
-    nutrution_grade = models.CharField(max_length=1)
+    nutriments = models.CharField(max_length=10000, default='')
+    nutrition_grade_fr = models.CharField(max_length=1)
     product_name_fr = models.CharField(max_length=100)
     url_img = models.URLField()
     url = models.URLField()

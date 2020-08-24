@@ -5,8 +5,9 @@ import uuid
 
 from django.test import TestCase
 
-from . import GIVEN_CATEGORIES
+from . import ID_PRODUCT, NUTELLA
 from .categories import get_categories
+from database import populate
 from .products import get_products
 from database.models import Category, Product
 
@@ -74,7 +75,6 @@ class TestProduct(TestCase):
     """Tests on products."""
     def test_get_products(self):
         """Test getting a product from OpenFoodFacts."""
-        id_product_1 = uuid.uuid4()
         id_product_2 = uuid.uuid4()
 
         requests.get = mock.MagicMock(return_value=requests.Response())
@@ -84,20 +84,12 @@ class TestProduct(TestCase):
             new=mock.Mock(
                 return_value={
                     'products': [
-                        {
-                            'id': id_product_1,
-                            'brands': 'Lactel',
-                            'category_tags': 'Boissons',
-                            'nutrition_grade': 'B',
-                            'product_name_fr': 'Lait',
-                            'url_img': 'http://lactel-images.fr',
-                            'url': 'http://off-lactel.fr'
-                        },
+                        NUTELLA,
                         {
                             'id': id_product_2,
                             'brands': 'Candia',
                             'category_tags': 'Boissons',
-                            'nutrition_grade': 'A',
+                            'nutrition_grade_fr': 'A',
                             'product_name_fr': 'Lait',
                             'url_img': 'http://candia-images.fr',
                             'url': 'http://off-candia.fr'
@@ -113,17 +105,19 @@ class TestProduct(TestCase):
 
         patch.stop()
 
+    def test_populate_product(self):
+        """Test populate db with product"""
+        product = NUTELLA
+
+        populate.populate_product([product])
+
+        assert Product.objects.get(brands='Ferrero').product_name_fr == 'Nutella'
+
     def test_add_product_db(self):
         """Test adding product to db."""
-        id_product = uuid.uuid4()
+        """Test adding product to db."""
         product = Product(
-            id=id_product,
-            brands='Ferrero',
-            category_tags='Pâte à tartiner',
-            nutrution_grade='F',
-            product_name_fr='Nutella',
-            url_img='http://nutella-images.fr',
-            url='http://off-nutella-link.fr'
+            **NUTELLA
         )
 
         # save product on db
@@ -134,6 +128,5 @@ class TestProduct(TestCase):
 
         # retrieve product name in the db
         assert Product.objects.get(
-            id=id_product
+            id=ID_PRODUCT
         ).product_name_fr == 'Nutella'
-
