@@ -49,8 +49,8 @@ class Favorite(models.Model):
     """Class Favorite.
 
     Args:
-        id_substitute (UUID): Id of the product found.
-        id_substitued (UUID): Id of the product to find substitute for.
+        substitute Product: product found.
+        substitued Product: product to find substitute for.
         date (DateTime): Date of the substitution.
     """
     substitute = models.ForeignKey(
@@ -73,4 +73,4 @@ class Favorite(models.Model):
     )
 
     def __str__(self):
-        return f"{self.id_substitued} a été remplacé par {self.id_substitute}"
+        return f"{self.substitued} remplacé par {self.substitute}"
