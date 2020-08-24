@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('database', '0003_favorite_id_user'),
+        ('catalog', '0003_favorite_id_user'),
     ]
 
     operations = [

@@ -30,8 +30,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('date', models.DateTimeField()),
-                ('id_substitued', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='fk_product_substitued', to='database.Product')),
-                ('id_substitute', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='fk_product_substitute', to='database.Product')),
+                ('id_substitued', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='fk_product_substitued', to='catalog.Product')),
+                ('id_substitute', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='fk_product_substitute', to='catalog.Product')),
             ],
         ),
     ]

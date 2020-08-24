@@ -1,10 +1,10 @@
-"""Tests on database module"""
+"""Tests on catalog module"""
 import ast
 from django.contrib.auth.models import User
 from django.test import TestCase
 import uuid
 
-import database.populate as populate
+import catalog.populate as populate
 from .models import Category, Favorite, Product
 from scrapping import NUTELLA, ID_PRODUCT
 
@@ -25,7 +25,7 @@ class TestCategories(TestCase):
         assert len(Category.objects.all()) == 2
 
     def test_add_category_db(self):
-        """Test adding category to database."""
+        """Test adding category to catalog."""
         id_category = uuid.uuid4()
         category = Category(
             id_category=id_category,
@@ -99,6 +99,4 @@ class TestFavorite(TestCase):
             user
         )
 
-        t = Favorite.objects.all()
-
-        import pdb; pdb.set_trace()
+        assert len(Favorite.objects.all()) == 1

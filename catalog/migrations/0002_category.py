@@ -7,7 +7,7 @@ import uuid
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('database', '0001_initial'),
+        ('catalog', '0001_initial'),
     ]
 
     operations = [
