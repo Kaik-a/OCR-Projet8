@@ -1,4 +1,5 @@
 """Tests on categories"""
+import ast
 import requests
 import unittest.mock as mock
 import uuid
@@ -49,6 +50,17 @@ class TestCategories(TestCase):
         assert len(get_categories()) == 1
 
         patch.stop()
+
+    def test_populate_category(self):
+        """Test populate categories"""
+        categories = [
+            {'name': 'boissons', 'url': 'http://boissons.con'},
+            {'name': 'snacks', 'url': 'http://snack.com'}
+        ]
+
+        populate.populate_categories(categories)
+
+        assert len(Category.objects.all()) == 2
 
     def test_add_category_db(self):
         """Test adding category to database."""
@@ -107,14 +119,18 @@ class TestProduct(TestCase):
 
     def test_populate_product(self):
         """Test populate db with product"""
-        product = NUTELLA
-
-        populate.populate_product([product])
+        populate.populate_product([NUTELLA])
 
         assert Product.objects.get(brands='Ferrero').product_name_fr == 'Nutella'
 
+        # Test that only the 100g attributes are exported to db
+        for nutriment in ast.literal_eval(Product.objects.get(
+                brands='Ferrero'
+        ).nutriments):
+            for key in nutriment:
+                assert key.find('100g') != -1
+
     def test_add_product_db(self):
-        """Test adding product to db."""
         """Test adding product to db."""
         product = Product(
             **NUTELLA
