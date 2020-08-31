@@ -1,6 +1,8 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.urls import reverse
 
 from .forms import LoginForm, SubscribeForm
 
@@ -16,10 +18,9 @@ def login_user(form: LoginForm, request):
         )
         if user:
             login(request, user)
-            return render(request, 'user_account.html', {
-                'first_name': user.first_name,
-                'email': user.email
-            })
+            return redirect(
+                reverse('accounts:user_account')
+            )
         else:
             return render(request, 'login.html', {'form': form})
 
@@ -50,7 +51,7 @@ def subscribe(request):
             )
             form_connect = LoginForm()
 
-            return render(request, 'login.html', {'form': form_connect})
+            return redirect(reverse('accounts:login'), form=form_connect)
     else:
         form = SubscribeForm()
 
@@ -60,8 +61,9 @@ def subscribe(request):
 def sign_out(request):
     logout(request)
 
-    return render(request, 'home.html')
+    return redirect(reverse('home'))
 
 
+@login_required
 def user_account(request):
     return render(request, "user_account.html")

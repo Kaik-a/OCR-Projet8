@@ -9,7 +9,7 @@
                     <h1>Ahoy !</h1>
                 </div>
                 <div class="row justify-content-center">
-                    <h2>{{ first_name }}</h2>
+                    <h2>{{ request.user.first_name }}</h2>
                 </div>
 {% endblock beforeheader %}
 
@@ -18,7 +18,7 @@
         <div class="col-lg-10">
             <div class="row justify-content-center">
                 <label for="user_email">Votre e-mail:</label>
-                <input id="user_email" placeholder="mail" value={% if email %}{{ email }}{% endif %}>
+                <input id="user_email" placeholder="mail" value={{ request.user.email }}>
             </div>
         </div>
     </div>

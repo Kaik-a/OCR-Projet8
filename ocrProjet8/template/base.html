@@ -24,7 +24,7 @@
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div class="container-fluid">
                 <span id="pur-beurre-icon"></span>
-                <a id="pur-beurre" class="navbar-brand js-scroll-trigger" href="#page-top">
+                <a id="pur-beurre" class="navbar-brand js-scroll-trigger" href="{% url 'home' %}">
                     <img src="{% static "/assets/img/logo_pur_beurre.png" %}" width="30" height="30" class="d-inline-block align-top" alt="">
                     Pur Beurre
                 </a>
@@ -34,14 +34,19 @@
                         <li class="nav-item"><a class="nav-link js-scroll-trigger">
                             <input placeholder="Chercher">
                         </a></li>
+                        {% if not request.user.is_anonymous %}
                         <li class="nav-item"><a class="nav-link js-scroll-trigger">
-                            <a href="{{ "account/login" }}"><i class="fas fa-user"></i></a>
+                            <label id="welcome_navbar" for="navbar_account">Bonjour, {{ request.user.first_name }}!</label>
+                        </a></li>
+                        {% endif %}
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger">
+                            <a id="navbar_account" href="{% if request.user.is_anonymous %}{% url 'accounts:login' %}{% else %}{% url 'accounts:user_account'%}{% endif %}"><i class="fas fa-user"></i></a>
                         </a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger">
-                            <img src="{% static "/assets/img/carrotLogo.png" %}" id="carrot-logo" class="d-inline-block align-top" alt="">
+                            <a id="navbar_favorites" href="{% url 'catalog:favorites' %}"><img src="{% static "/assets/img/carrotLogo.png" %}" id="carrot-logo" class="d-inline-block align-top" alt=""></a>
                         </a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger">
-                            <a href="{{ "account/logout" }}"><i class="fas fa-sign-out-alt"></i></a>
+                            <a id="navbar_logout" href="{% url 'accounts:logout' %}"><i class="fas fa-sign-out-alt"></i></a>
                         </a></li>
                     </ul>
                 </div>
@@ -66,10 +71,10 @@
             <div class="container">
                 <div class="row text-center text-muted">
                     <div class="col-md-6 justify-content-center">
-                        <a href="mentions" class="text-muted">Mentions Légales</a>
+                        <a href="{% url 'notice' %}" class="text-muted">Mentions Légales</a>
                     </div>
                     <div class="col-md-6 justify-content-center">
-                        <a href="#contact" class="text-muted">Contact</a>
+                        <a href="{% url 'contact' %}" class="text-muted">Contact</a>
                     </div>
                 </div>
             </div>
