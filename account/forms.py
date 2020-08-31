@@ -15,6 +15,8 @@ class SubscribeForm(forms.Form):
     confirm_password = forms.CharField(
         label="Confirmer le mot de passe", widget=forms.PasswordInput
     )
+    first_name = forms.CharField(label="Prénom", max_length=50)
+    last_name = forms.CharField(label="Nom", max_length=120)
 
     def clean(self):
         cleaned_data = super(SubscribeForm, self).clean()

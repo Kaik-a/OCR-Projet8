@@ -1,3 +1,13 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def aliment(request):
+    return render(request, "aliment.html")
+
+
+def favorites(request):
+    return render(request, "favorites.html")
+
+
+def results(request):
+    return render(request, "results.html")

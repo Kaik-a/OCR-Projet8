@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Favoris{% endblock title %}
+
+{% block header %}
+    <div class="col-lg-10 align-self-end">
+        <h1 class="text-uppercase text-white font-weight-bold">Produit enregistrés</h1>
+        <hr class="divider my-4" />
+    </div>
+{% endblock header %}
+
+{% block main %}
+    <main class="h-100">
+        <div class="container h-75">
+            <div class="row h-50">
+                    <div class="col-md-4 text-center align-items-center justify-content-center d-flex">
+                        <figure class="products">
+                            <img src="{% static "ocrProjet8/static/assets/img/portfolio/thumbnails/nutella.jpg" %}" class="product img-fluid">
+                            <figcaption>Nutella</figcaption>
+                            <i class="far fa-save"></i>
+                            <span>Sauvegarder</span>
+                            <span class="score">Ⓐ</span>
+                        </figure>
+                    </div>
+                    <div class="col-md-4 align-items-center justify-content-center d-flex">
+
+                    </div>
+                    <div class="col-md-4 align-items-center justify-content-center d-flex">
+
+                    </div>
+                </div>
+                <div class="row h-50">
+                    <div class="col-md-4 align-items-center justify-content-center d-flex">
+
+                    </div>
+                    <div class="col-md-4 align-items-center justify-content-center d-flex">
+
+                    </div>
+                    <div class="col-md-4 align-items-center justify-content-center d-flex">
+
+                    </div>
+                </div>
+        </div>
+    </main>
+{% endblock main %}

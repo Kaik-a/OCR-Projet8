@@ -1,21 +1,25 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import render
-from django.template.loader import get_template
 
 from .forms import LoginForm, SubscribeForm
 
 
-# Create your views here.
 def login_user(form: LoginForm, request):
     username = form.data.get('login')
     password = form.data.get('password')
 
     if username and password:
-        user = authenticate(username=username, password=password)
+        user = authenticate(
+            username=username,
+            password=password,
+        )
         if user:
             login(request, user)
-            return render(request, 'home.html')
+            return render(request, 'user_account.html', {
+                'first_name': user.first_name,
+                'email': user.email
+            })
         else:
             return render(request, 'login.html', {'form': form})
 
@@ -39,7 +43,10 @@ def subscribe(request):
         if form.is_valid():
             User.objects.create_user(
                 username=form.data.get('login'),
-                password=form.data.get('password')
+                password=form.data.get('password'),
+                first_name=form.data.get('first_name'),
+                last_name=form.data.get('last_name'),
+                email=form.data.get('email')
             )
             form_connect = LoginForm()
 
@@ -54,3 +61,7 @@ def sign_out(request):
     logout(request)
 
     return render(request, 'home.html')
+
+
+def user_account(request):
+    return render(request, "user_account.html")
