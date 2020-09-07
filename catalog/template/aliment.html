@@ -2,11 +2,11 @@
 
 {% load static %}
 
-{% block title %}Aliment{%  endblock title %}
+{% block title %}{{ product.product_name_fr }}{%  endblock title %}
 
 {% block header %}
     <div class="col-lg-10 align-self-end">
-        <h1 class="text-uppercase text-white font-weight-bold">Nom du produit</h1>
+        <h1 class="text-uppercase text-white font-weight-bold">{{ product.product_name_fr }}</h1>
     </div>
 {% endblock header %}
 
@@ -15,19 +15,23 @@
         <div class="container-fluid h-100 w-100">
             <div class="row h-50">
                 <div class="col-md-6 text-center">
-                    <img class="nutriscore" src="{% static "/assets/img/A-score.png" %}" alt="A-score">
+                    {% with begin="/assets/img/" end="-score.png" %}
+                        <img class="nutriscore" src="{% static begin|add:product.nutrition_grade_fr|add:end %}" alt={{ product.nutrition_grade_fr|add: "-score"}}>
+                    {%  endwith %}
                 </div>
                 <div class="col-md-6">
-                    <p>Repères nutritionnels pour 100:</p>
+                    <p>Repères nutritionnels pour 100g:</p>
                     <ul class="rnut">
-                        <li>🔴 10g glucide</li>
+                        {% for nutriment in nutriments %}
+                            <li>🔴 10g glucide</li>
+                        {% endfor %}
                         <li>🟢 1g lipide</li>
                         <li>🟢 2L d'eau</li>
                     </ul>
                 </div>
             </div>
             <div class="row h-25 text-center justify-content-center align-items-center">
-                <button>Voir la fiche d'OpenFoodFacts</button>
+                <a href={{ product.url }}><button>Voir la fiche d'OpenFoodFacts</button></a>
             </div>
         </div>
     </main>

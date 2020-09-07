@@ -10,7 +10,7 @@ GIVEN_CATEGORIES = [
     'Desserts'
 ]
 OPENFOODFACT_URL = 'https://fr.openfoodfacts.org/'
-CATEGORIES_JSON = OPENFOODFACT_URL + 'categories.json'  # url of categories
+CATEGORIES_JSON = OPENFOODFACT_URL + 'categories'  # url of categories
 SEARCH_URL = OPENFOODFACT_URL + 'cgi/search.pl'
 BASE_SEARCH_PARAMS = {
     'action': 'process',

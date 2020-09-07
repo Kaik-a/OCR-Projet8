@@ -1,8 +1,10 @@
 """Insert products in catalog"""
 from datetime import datetime
-from django.contrib.auth.models import User
 from typing import List
 from uuid import uuid4
+
+from django.contrib.auth.models import User
+from django.db import IntegrityError
 
 from .models import Category, Favorite, Product
 
@@ -20,12 +22,12 @@ def populate_product(products: List) -> None:
                 Product(
                     uuid4(),
                     product.get('brands'),
-                    product.get('category_tags'),
+                    product.get('categories_tags'),
                     [{key: value} for key, value in product.get('nutriments').items()
                      if key.find('100g') != -1],
                     product.get('nutrition_grade_fr'),
                     product.get('product_name_fr'),
-                    product.get('url_img'),
+                    product.get('image_url'),
                     product.get('url'),
                 )
             )
@@ -33,11 +35,14 @@ def populate_product(products: List) -> None:
             continue
 
     for product_object in list_product:
-        if product_object.brands and product_object.category_tags \
+        if product_object.brands and product_object.categories_tags \
             and product_object.nutriments and product_object.nutrition_grade_fr \
-            and product_object.product_name_fr and product_object.url_img \
+            and product_object.product_name_fr and product_object.image_url \
                 and product_object.url:
-            product_object.save()
+            try:
+                product_object.save()
+            except IntegrityError:
+                continue
 
 
 def populate_categories(categories: List) -> None:
@@ -53,7 +58,7 @@ def populate_categories(categories: List) -> None:
             'url': category['url']
             }) for category in categories])
     except TypeError as e:
-        print(e)
+        raise e
 
 
 def save_favorite(

@@ -18,11 +18,11 @@ class Product(models.Model):
     """
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
     brands = models.CharField(max_length=100)
-    category_tags = models.CharField(max_length=500)
+    categories_tags = models.CharField(max_length=500)
     nutriments = models.CharField(max_length=10000, default='')
     nutrition_grade_fr = models.CharField(max_length=1)
-    product_name_fr = models.CharField(max_length=100)
-    url_img = models.URLField()
+    product_name_fr = models.CharField(max_length=100, unique=True)
+    image_url = models.URLField()
     url = models.URLField()
 
     def __str__(self):
