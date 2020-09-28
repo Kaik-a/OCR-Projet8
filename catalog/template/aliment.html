@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}{{ product.product_name_fr }}{%  endblock title %}
+{% block title %}{{ product.product_name_fr }}{% endblock title %}
 
 {% block header %}
     <div class="col-lg-10 align-self-end">
@@ -16,7 +16,7 @@
         <div class="container-fluid w-100">
             <div class="row h-50">
                 <div class="col-md-6 text-center">
-                    {% with begin="/assets/img/" end="-score.png" %}
+                    {% with begin="ocrProjet8/assets/img/" end="-score.png" %}
                         <img class="nutriscore" src="{% static begin|add:product.nutrition_grade_fr|add:end %}" alt={{ product.nutrition_grade_fr|add:"-score" }}>
                     {%  endwith %}
                 </div>

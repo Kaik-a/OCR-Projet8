@@ -12,7 +12,7 @@ from .forms import LoginForm, SubscribeForm
 def login_user(request, form: LoginForm):
     username = form.data.get('login')
     password = form.data.get('password')
-
+    import pdb;pdb.set_trace()
     if username and password:
         user: User = authenticate(
             username=username,
