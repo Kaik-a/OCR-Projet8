@@ -25,7 +25,7 @@ BASE_SEARCH_PARAMS = {
 NUTELLA = {
     'id': ID_PRODUCT,
     'brands': 'Ferrero',
-    'category_tags': 'Pâte à tartiner',
+    'categories_tags': 'Pâte à tartiner',
     'nutrition_grade_fr': 'F',
     'nutriments': {
          "sodium": "0.629",
@@ -69,6 +69,6 @@ NUTELLA = {
          "saturated-fat": 1
     },
     'product_name_fr': 'Nutella',
-    'url_img': 'http://nutella-images.fr',
+    'image_url': 'http://nutella-images.fr',
     'url': 'http://off-nutella-link.fr'
 }
