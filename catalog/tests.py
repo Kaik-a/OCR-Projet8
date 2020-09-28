@@ -11,8 +11,6 @@ from .models import Category, Favorite, Product
 from scrapping import NUTELLA, ID_PRODUCT
 
 
-# Create your tests here.
-
 class TestCategories(TestCase):
     """Tests on categories."""
     def test_populate_category(self):
@@ -88,6 +86,7 @@ class TestProduct(TestCase):
 
 
 class TestFavorite(TestCase):
+    """Test on favorite"""
     def test_add_favorite_db(self):
         """Add a new favorite to db"""
         product_1 = Product(
@@ -112,7 +111,9 @@ class TestFavorite(TestCase):
 
 
 class TestViews(TestCase):
+    """Test on catalog's views"""
     def setUp(self) -> None:
+        """Tests configuration."""
         self.test_user = User.objects.create_user(
             'test_user',
             'test_user@test.com',
@@ -126,6 +127,7 @@ class TestViews(TestCase):
         self.product.save()
 
     def test_aliment(self):
+        """Load aliment"""
         url = reverse(
             'catalog:aliment',
             kwargs={'product_id': Product.objects.all()[0].id}
@@ -135,6 +137,7 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_favorites(self):
+        """Load favorites"""
         url = reverse(
             'catalog:favorites',
             kwargs={'user': self.test_user.id}
@@ -145,6 +148,7 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_results(self):
+        """Load results"""
         url = reverse(
             'catalog:results',
             kwargs={'base_product': str(self.product.id)}

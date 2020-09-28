@@ -10,13 +10,16 @@ from catalog.models import Product
 
 
 class TestSearch(TestCase):
+    """Test on search app"""
     def setUp(self) -> None:
+        """Tests configuration"""
         Product(product_name_fr='nutella').save()
         Product(product_name_fr='lait').save()
         Product(product_name_fr='fromage de chèvre').save()
         Product(product_name_fr='pain').save()
 
     def test_search(self):
+        """Verify search order correctly products."""
         url = reverse(
             'product-autocomplete'
         )

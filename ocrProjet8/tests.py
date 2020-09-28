@@ -3,7 +3,9 @@ from django.urls import reverse
 
 
 class TestProject(TestCase):
+    """Tests on ocrProjet views."""
     def test_home(self):
+        """Load home"""
         url = reverse(
             'home'
         )
@@ -13,6 +15,7 @@ class TestProject(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_contact(self):
+        """Load contact"""
         url = reverse(
             'contact'
         )
@@ -21,7 +24,8 @@ class TestProject(TestCase):
 
         self.assertEqual(response.status_code, 200)
 
-    def test_mention(self):
+    def test_notice(self):
+        """Load notice"""
         url = reverse(
             'notice'
         )

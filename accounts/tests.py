@@ -1,18 +1,15 @@
 from datetime import datetime
-from importlib import import_module
-from unittest.mock import patch
 from uuid import uuid4
 
 from django.contrib.auth.models import User
 from django.test import TestCase, RequestFactory
 from django.urls import reverse
 
-from accounts.forms import LoginForm
-from accounts.views import login_user
 from catalog.models import Product, Favorite
 
 
 class TestUnauthenticated(TestCase):
+    """Tests while not authenticated"""
     product_1 = Product(
         id=uuid4(),
         product_name_fr='test_product_1'
@@ -41,6 +38,7 @@ class TestUnauthenticated(TestCase):
         """If no user is authenticated, you should not be able to logout."""
         url = reverse('accounts:logout')
         response = self.client.get(url)
+        assert 'login' in response.url
         self.failUnlessEqual(response.status_code, 302)
 
     def test_save_unautenticated(self):
@@ -53,6 +51,8 @@ class TestUnauthenticated(TestCase):
             }
         )
         response = self.client.get(url)
+
+        assert 'login' in response.url
         self.failUnlessEqual(response.status_code, 302)
 
     def test_delete_favorite_unauthenticated(self):
@@ -65,10 +65,13 @@ class TestUnauthenticated(TestCase):
             }
         )
         response = self.client.get(url)
+
+        assert 'login' in response.url
         self.failUnlessEqual(response.status_code, 302)
 
 
 class TestAuthenticated(TestCase):
+    """Tests while authenticated"""
     product_1 = Product(
         id=uuid4(),
         product_name_fr='test_product_1'
@@ -80,6 +83,7 @@ class TestAuthenticated(TestCase):
     )
 
     def setUp(self) -> None:
+        """Tests configuration"""
         self.factory = RequestFactory()
         self.test_user = User.objects.create_user(
             'test_user',
@@ -121,6 +125,7 @@ class TestAuthenticated(TestCase):
         """If user is authenticated, you should be able to logout."""
         url = reverse('accounts:logout')
         response = self.client.get(url)
+        assert response.url == '/'
         self.assertEqual(response.status_code, 302)
 
     def test_save_autenticated(self):
@@ -133,6 +138,8 @@ class TestAuthenticated(TestCase):
             }
         )
         response = self.client.get(url)
+
+        assert '/catalog/results' in response.url
         self.assertEqual(response.status_code, 302)
 
     def test_delete_favorite_authenticated(self):
@@ -145,9 +152,12 @@ class TestAuthenticated(TestCase):
             }
         )
         response = self.client.get(url)
+
+        assert 'catalog/favorites' in response.url
         self.assertEqual(response.status_code, 302)
 
     def test_get_user_account(self):
+        """load user_account"""
         url = reverse(
             'accounts:login'
         )
@@ -156,6 +166,7 @@ class TestAuthenticated(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_subscribe(self):
+        """load subscribe"""
         url = reverse(
             'accounts:subscription'
         )
