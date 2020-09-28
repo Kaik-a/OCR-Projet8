@@ -1,12 +1,18 @@
 from datetime import datetime
+from importlib import import_module
+from unittest.mock import patch
 from uuid import uuid4
 
+from django.contrib.auth import login
 from django.contrib.auth.models import User
-from django.test import TestCase
+from django.contrib.messages.middleware import MessageMiddleware
+from django.contrib.messages.storage.fallback import FallbackStorage
+from django.contrib.sessions.middleware import SessionMiddleware
+from django.test import TestCase, RequestFactory
 from django.urls import reverse
 
 
-# Create your tests here.
+from accounts.views import get_user_info, subscribe
 from catalog.models import Product, Favorite
 
 
@@ -143,3 +149,7 @@ class TestAuthenticated(TestCase):
         )
         response = self.client.get(url)
         self.assertEqual(response.status_code, 302)
+
+
+
+

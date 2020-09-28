@@ -9,7 +9,7 @@ from django.urls import reverse
 from .forms import LoginForm, SubscribeForm
 
 
-def login_user(form: LoginForm, request):
+def login_user(request, form: LoginForm):
     username = form.data.get('login')
     password = form.data.get('password')
 
@@ -43,7 +43,7 @@ def get_user_info(request):
         form = LoginForm(request.POST)
 
         if form.is_valid():
-            return login_user(form, request)
+            return login_user(request, form)
     else:
         form = LoginForm()
 
@@ -53,7 +53,6 @@ def get_user_info(request):
 def subscribe(request):
     if request.method == 'POST':
         form = SubscribeForm(request.POST)
-
         if form.is_valid():
             try:
                 User.objects.create_user(
