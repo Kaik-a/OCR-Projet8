@@ -14,4 +14,3 @@ class SearchForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ()
-

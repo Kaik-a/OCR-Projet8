@@ -10073,8 +10073,18 @@ hr.light {
   padding: 8rem 0;
 }
 
-#navbar_account {
-  padding-left: 0;
+.product:link, .product:visited {
+  color: black;
+}
+
+.delete-form, .delete-form.button, .delete-button {
+  background-color: #f4623a;
+}
+
+.notification {
+  position: absolute;
+  top: 5rem;
+  right: 1rem;
 }
 
 #mainNav {

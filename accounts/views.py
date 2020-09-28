@@ -1,6 +1,8 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib import messages
+from django.db import IntegrityError
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
@@ -12,16 +14,27 @@ def login_user(form: LoginForm, request):
     password = form.data.get('password')
 
     if username and password:
-        user = authenticate(
+        user: User = authenticate(
             username=username,
             password=password,
         )
         if user:
             login(request, user)
+            messages.add_message(
+                request,
+                25,
+                f"Bonjour {user.first_name}! Vous êtes maintenant connecté"
+            )
             return redirect(
                 reverse('accounts:user_account')
             )
         else:
+            messages.add_message(
+                request,
+                40,
+                'Aucun compte recensé avec cette combinaison. Votre email ou mot de '
+                'passe sont peut être incorrects?'
+            )
             return render(request, 'login.html', {'form': form})
 
 
@@ -42,13 +55,16 @@ def subscribe(request):
         form = SubscribeForm(request.POST)
 
         if form.is_valid():
-            User.objects.create_user(
-                username=form.data.get('login'),
-                password=form.data.get('password'),
-                first_name=form.data.get('first_name'),
-                last_name=form.data.get('last_name'),
-                email=form.data.get('email')
-            )
+            try:
+                User.objects.create_user(
+                    username=form.data.get('login'),
+                    password=form.data.get('password'),
+                    first_name=form.data.get('first_name'),
+                    last_name=form.data.get('last_name'),
+                    email=form.data.get('email')
+                )
+            except IntegrityError as e:
+                print(e)
             form_connect = LoginForm()
 
             return redirect(reverse('accounts:login'), form=form_connect)
@@ -58,9 +74,15 @@ def subscribe(request):
     return render(request, 'subscribe.html', {'form': form})
 
 
+@login_required
 def sign_out(request):
     logout(request)
 
+    messages.add_message(
+        request,
+        25,
+        'Au revoir!'
+    )
     return redirect(reverse('home'))
 
 

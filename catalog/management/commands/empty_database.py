@@ -4,7 +4,7 @@ from catalog.models import Category, Product, Favorite
 
 
 class Command(BaseCommand):
-    help = "Populates the database"
+    help = "Empty the database"
 
     def add_arguments(self, parser):
         parser.add_argument('emptydb', nargs='+', type=bool)

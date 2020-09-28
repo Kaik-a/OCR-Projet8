@@ -1,11 +1,12 @@
 """Insert products in catalog"""
 from datetime import datetime
-from typing import List
+from typing import List, Dict
 from uuid import uuid4
 
 from django.contrib.auth.models import User
 from django.db import IntegrityError
 
+from . import NUTRIMENTS
 from .models import Category, Favorite, Product
 
 
@@ -24,7 +25,7 @@ def populate_product(products: List) -> None:
                     product.get('brands'),
                     product.get('categories_tags'),
                     [{key: value} for key, value in product.get('nutriments').items()
-                     if key.find('100g') != -1],
+                     if key.find('100g') != -1 and key[:-5] in NUTRIMENTS.keys()],
                     product.get('nutrition_grade_fr'),
                     product.get('product_name_fr'),
                     product.get('image_url'),

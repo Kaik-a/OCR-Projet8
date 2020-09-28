@@ -3,6 +3,7 @@
     <head>
         {% load static %}
         {% load navbar_search %}
+        {% load stringify %}
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
@@ -22,6 +23,7 @@
         <link href="{% static "/css/styles.css"  %}" rel="stylesheet" />
     </head>
     <body id="page-top">
+        {% include "message.html" %}
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
             <div class="container-fluid">
@@ -34,9 +36,13 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto my-2 my-lg-0">
                         <li class="nav-item"><a class="nav-link js-scroll-trigger">
-                            <form class="navbar-search-form" action="" method="post">
-
-                            </form>
+                            {% if not request.path == '/' %}
+                                <form class="navbar-search-form" action="" method="post">
+                                    {% csrf_token %}
+                                    {{ toolbar_form }}
+                                    {{ toolbar_form.media }}
+                                </form>
+                            {% endif %}
                         </a></li>
                         {% if not request.user.is_anonymous %}
                         <li class="nav-item"><a class="nav-link js-scroll-trigger">
@@ -47,7 +53,7 @@
                             <a id="navbar_account" href="{% if request.user.is_anonymous %}{% url 'accounts:login' %}{% else %}{% url 'accounts:user_account'%}{% endif %}"><i class="fas fa-user"></i></a>
                         </a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger">
-                            <a id="navbar_favorites" href="{% url 'catalog:favorites' %}"><img src="{% static "/assets/img/carrotLogo.png" %}" id="carrot-logo" class="d-inline-block align-top" alt=""></a>
+                            <a id="navbar_favorites" href="{% url 'catalog:favorites' request.user.id %}"><img src="{% static "/assets/img/carrotLogo.png" %}" id="carrot-logo" class="d-inline-block align-top" alt=""></a>
                         </a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger">
                             <a id="navbar_logout" href="{% url 'accounts:logout' %}"><i class="fas fa-sign-out-alt"></i></a>
@@ -91,5 +97,16 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
         <!-- Core theme JS-->
         <script src="{% static "/js/scripts.js" %}"></script>
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    {% if messages %}
+      <script>
+          {% for message in messages %}
+              $(document).ready(function () {
+                  $('.toast').toast('show');
+              });
+          {% endfor %}
+      </script>
+    {% endif %}
     </body>
 </html>

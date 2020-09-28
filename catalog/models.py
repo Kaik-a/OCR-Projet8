@@ -1,7 +1,21 @@
+import dataclasses
 import uuid
 
 from django.db import models
 from django.contrib.auth.models import User
+
+
+class CompareNutriscore(models.Lookup):
+    lookup_name = "cn"
+
+    def as_sql(self, compiler, connection):
+        lhs, lhs_params = self.process_lhs(compiler, connection)
+        rhs, rhs_params = self.process_rhs(compiler, connection)
+        params = lhs_params + rhs_params
+        return "%s < %s" % (lhs, rhs), params
+
+
+models.Field.register_lookup(CompareNutriscore)
 
 
 class Product(models.Model):
@@ -62,7 +76,7 @@ class Favorite(models.Model):
     substitued = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
-        related_name='fk_product_substitued'
+        related_name='fk_product_substitued',
     )
     date = models.DateTimeField()
 
@@ -71,6 +85,9 @@ class Favorite(models.Model):
         default=None,
         on_delete=models.CASCADE
     )
+
+    class Meta:
+        unique_together = ('substitute', 'user')
 
     def __str__(self):
         return f"{self.substitued} remplacé par {self.substitute}"

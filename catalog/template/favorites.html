@@ -1,6 +1,8 @@
-{% extends "results.html" %}
+{% extends "base.html" %}
 
 {% load static %}
+
+{% load dict_template %}
 
 {% block title %}Favoris{% endblock title %}
 
@@ -12,42 +14,78 @@
 {% endblock header %}
 
 {% block main %}
-    <main class="h-100">
-        <div class="container h-75">
-            <div class="row h-50">
+    <main class="h-100 w-100">
+        <div class="container h-75 w-100">
+            <div class="row h-50 w-100">
+                {% for product in page_obj %}
+                    {% if forloop.counter|divisibleby:3 %}
                     <div class="col-md-4 text-center align-items-center justify-content-center d-flex">
-                        {% for product in products %}
-                            <figure class="products">
+                        <figure class="products">
+                            <a class="product" href={% url "catalog:aliment" product.id %}>
                                 <img src="{{ product.image_url }}" class="product img-fluid">
                                 <figcaption>{{ product.product_name_fr }}</figcaption>
+                            </a>
+                            {% with product as substitute %}
                                 {% block save %}
+                                    <form class="delete-form" action="{% url "catalog:delete_favorite" product.id %}" method="post">
+                                        {% csrf_token %}
+                                        <button class="delete-button" type="submit"><i class="fas fa-trash-alt"></i> Supprimer</button>
+                                    </form>
                                 {% endblock save %}
-                                <span class="score">
-                                    {% with product.nutrition_grade_fr as nutrition_grade %}
-                                        {{ nutriscore.nutrition_grade }}
+                            {% endwith %}
+                            <span class="score">
+                                {% with product.nutrition_grade_fr as nutrition_grade %}
+                                    {{ nutriscores|get_value_for_key:nutrition_grade }}
+                                {% endwith %}
+                            </span>
+                        </figure>
+                    </div>
+                        </div>
+                    {% if not forloop.last %}
+                    <div class="row h-50 w-100">
+                    {% endif %}
+                    {% else %}
+                            <div class="col-md-4 text-center align-items-center justify-content-center d-flex">
+                                <figure class="products">
+                                    <a class="product" href={% url "catalog:aliment" product.id %}>
+                                        <img src="{{ product.image_url }}" class="product img-fluid">
+                                        <figcaption>{{ product.product_name_fr }}</figcaption>
+                                    </a>
+                                    {% with product as substitute %}
+                                        {% block save2 %}
+                                            <form action="{% url "catalog:delete_favorite" product.id %}" method="post">
+                                                {% csrf_token %}
+                                                <button class="delete-button" type="submit"><i class="fas fa-trash-alt"></i> Supprimer</button>
+                                            </form>
+                                        {% endblock save2 %}
                                     {% endwith %}
-                                </span>
-                            </figure>
-                        {% endfor %}
-                    </div>
-                    <div class="col-md-4 align-items-center justify-content-center d-flex">
-
-                    </div>
-                    <div class="col-md-4 align-items-center justify-content-center d-flex">
-
-                    </div>
+                                    <span class="score">
+                                        {% with product.nutrition_grade_fr as nutrition_grade %}
+                                            {{ nutriscores|get_value_for_key:nutrition_grade }}
+                                        {% endwith %}
+                                    </span>
+                                </figure>
+                            </div>
+                    {% endif %}
+                {% endfor %}
                 </div>
-                <div class="row h-50">
-                    <div class="col-md-4 align-items-center justify-content-center d-flex">
+            <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1">&laquo; Premier</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">Précedant</a>
+                    {% endif %}
 
-                    </div>
-                    <div class="col-md-4 align-items-center justify-content-center d-flex">
+                    <span class="current">
+                        Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}.
+                    </span>
 
-                    </div>
-                    <div class="col-md-4 align-items-center justify-content-center d-flex">
-
-                    </div>
-                </div>
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">Suivant</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">Dernier &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
         </div>
     </main>
 {% endblock main %}
