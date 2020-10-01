@@ -1,3 +1,4 @@
+selenium
 dal
 requests
 django==3.1.1

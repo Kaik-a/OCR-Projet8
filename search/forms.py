@@ -8,7 +8,9 @@ class SearchForm(forms.ModelForm):
     produit = forms.ModelChoiceField(
         empty_label='Produit',
         queryset=Product.objects.all(),
-        widget=autocomplete.ModelSelect2(url='product-autocomplete')
+        widget=autocomplete.ModelSelect2(
+            attrs={'id': 'search-form-input'},
+            url='product-autocomplete')
     )
 
     class Meta:

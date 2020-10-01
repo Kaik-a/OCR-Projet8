@@ -8,7 +8,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>{% block title %}{% endblock title %}</title>
-        <<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="{% static "ocrProjet8/assets/img/favicon.ico" %}"/>
         <!-- Font Awesome icons (free version)-->
@@ -36,10 +36,11 @@
                     <ul class="navbar-nav ml-auto my-2 my-lg-0">
                         <li class="nav-item"><a class="nav-link js-scroll-trigger">
                             {% if not request.path == '/' %}
-                                <form class="navbar-search-form" action="" method="post">
+                                <form id="navbar-search-form" class="navbar-search-form" action="" method="post">
                                     {% csrf_token %}
                                     {{ toolbar_form }}
                                     {{ toolbar_form.media }}
+                                    <button id="search-button">OK</button>
                                 </form>
                             {% endif %}
                         </a></li>
