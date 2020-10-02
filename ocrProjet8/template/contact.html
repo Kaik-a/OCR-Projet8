@@ -10,6 +10,11 @@
         <hr class="divider my-4" />
     </div>
     <div class="col-lg-8 align-self-baseline">
-        <p class="text-white-75 font-weight-light mb-5">blablabla pour nous contacter blablabla</p>
+        <form id="contact-form" class="contact-form-class text-white" action="" method="post">
+            {% csrf_token %}
+            {{ form }}
+            {{ form.media }}
+            <button id="contact-button">Envoyer</button>
+        </form>
     </div>
-{%  endblock header %}
+{% endblock header %}

@@ -1,10 +1,11 @@
-from ast import literal_eval
+from django.contrib import messages
+from django.core.mail import mail_admins
 from django.shortcuts import render, redirect
-from typing import List
 
 from django.urls import reverse
 
 from catalog.models import Product
+from ocrProjet8.forms import ContactForm
 from search.forms import SearchForm
 
 
@@ -20,6 +21,7 @@ def home(request):
             )
     else:
         form: SearchForm = SearchForm()
+
     return render(request, 'home.html', {'form': form})
 
 
@@ -28,4 +30,33 @@ def legal_notice(request):
 
 
 def contact(request):
-    return render(request, 'contact.html')
+    if request.method == "POST":
+        form: ContactForm = ContactForm(request.POST)
+
+        email = form.data.get('email')
+        subject = ' ' + form.data.get('subject')
+        message = email + '\r\n' + form.data.get('message')
+
+        if form.is_valid():
+            try:
+                mail_admins(subject, message)
+                messages.add_message(
+                    request,
+                    25,
+                    "Merci de nous avoir sollicité, nous vous contacterons dans les "
+                    "plus bref délais."
+                )
+                return redirect(reverse('home'))
+
+            except TimeoutError as e:
+                messages.add_message(
+                    request,
+                    40,
+                    "Votre message n'a pas été envoyé, si l'erreur se reproduit, "
+                    "veuillez utilisez les informations de contact sur la page "
+                    "d'accueil"
+                )
+    else:
+        form: ContactForm = ContactForm()
+
+    return render(request, 'contact.html', {'form': form})
