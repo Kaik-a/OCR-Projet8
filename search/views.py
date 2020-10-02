@@ -1,5 +1,4 @@
 from dal import autocomplete
-from django.shortcuts import render
 
 from catalog.models import Product
 

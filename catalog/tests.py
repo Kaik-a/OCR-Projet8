@@ -1,6 +1,9 @@
 """Tests on catalog module"""
 import ast
+from io import StringIO
+
 from django.contrib.auth.models import User
+from django.core.management import call_command
 from django.test import TestCase
 import uuid
 
@@ -157,3 +160,11 @@ class TestViews(TestCase):
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)
+
+
+class DjangoAdminCommandTest(TestCase):
+    def test_empty_database(self):
+        """Verify if database correctly emptied"""
+        out = StringIO()
+        call_command('empty_database', True, stdout=out)
+        self.assertIn('Database correctly emptied', out.getvalue())

@@ -12,6 +12,7 @@ from scrapping import NUTELLA
 
 
 class SeleniumBasedTestCase(LiveServerTestCase):
+    """Test based on Selenium."""
     def setUp(self) -> None:
         caps = DesiredCapabilities().FIREFOX.copy()
         caps['marionette'] = True
@@ -42,7 +43,7 @@ class SeleniumBasedTestCase(LiveServerTestCase):
         self.driver.close()
 
     def test_save_favorite(self):
-
+        """An authenticated user should be able to save favorites."""
         self.driver.get(self.live_server_url + '/accounts/login')
 
         # login
@@ -80,6 +81,7 @@ class SeleniumBasedTestCase(LiveServerTestCase):
         self.assertEqual(self.driver.title, 'Favoris')
 
     def test_delete_favorite(self):
+        """An authenticated user should be able to delete favorites."""
         Favorite(
             substitute=self.product_1,
             substitued=self.product_2,
@@ -107,6 +109,7 @@ class SeleniumBasedTestCase(LiveServerTestCase):
         self.assertEqual(len(Favorite.objects.all().filter(user=self.user)), 0)
 
     def test_fail_access_favorite(self):
+        """An user non authenticated shouldn't access to favorites."""
         self.driver.get(self.live_server_url)
 
         # click on favorites
@@ -115,6 +118,7 @@ class SeleniumBasedTestCase(LiveServerTestCase):
         self.assertEqual(self.driver.title, 'Login')
 
     def test_fail_access_user_account(self):
+        """An user non authenticated shouldn't access to user_account."""
         self.driver.get(self.live_server_url)
 
         # click on user account

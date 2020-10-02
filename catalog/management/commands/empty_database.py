@@ -17,3 +17,5 @@ class Command(BaseCommand):
                 Favorite.objects.all().delete()
             except Exception as e:
                 raise CommandError(f"Error while emptying database - {e}")
+
+            self.stdout.write("Database correctly emptied", ending='')
