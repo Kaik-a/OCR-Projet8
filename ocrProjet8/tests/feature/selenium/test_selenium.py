@@ -1,3 +1,6 @@
+from datetime import datetime
+from uuid import uuid4
+
 from django.contrib.auth.models import User
 from django.test import LiveServerTestCase
 from selenium import webdriver
@@ -24,13 +27,19 @@ class SeleniumBasedTestCase(LiveServerTestCase):
                            '/MacOS/firefox-bin',
         )
 
-        Product(
+        self.product_1 = Product(
+                id=uuid4(),
                 product_name_fr='produit bon',
                 nutrition_grade_fr='A',
                 categories_tags=['Pâte à tartiner']
-            ).save()
+        )
+        self.product_2 = Product(**NUTELLA)
 
-        Product(**NUTELLA).save()
+        self.product_1.save()
+        self.product_2.save()
+
+    def tearDown(self) -> None:
+        self.driver.close()
 
     def test_save_favorite(self):
 
@@ -70,13 +79,45 @@ class SeleniumBasedTestCase(LiveServerTestCase):
 
         self.assertEqual(self.driver.title, 'Favoris')
 
-        self.driver.close()
-
     def test_delete_favorite(self):
-        ...
+        Favorite(
+            substitute=self.product_1,
+            substitued=self.product_2,
+            user=self.user,
+            date=datetime.now()
+        ).save()
 
-    def fail_access_favorite(self):
-        ...
+        self.driver.get(self.live_server_url + '/accounts/login')
 
-    def fail_access_user_account(self):
-        ...
+        # login
+        self.driver.find_element_by_id('id_login').send_keys(self.user.username)
+        self.driver.find_element_by_id('id_password').send_keys('test1@1234')
+        self.driver.find_element_by_id('login-button').click()
+
+        # go to favorites
+        self.driver.find_element_by_id('carrot-logo').click()
+
+        self.assertEqual(self.driver.title, 'Favoris')
+
+        self.assertEqual(len(Favorite.objects.all().filter(user=self.user)), 1)
+
+        # delete first product
+        self.driver.find_element_by_xpath('//figure/form/button').click()
+
+        self.assertEqual(len(Favorite.objects.all().filter(user=self.user)), 0)
+
+    def test_fail_access_favorite(self):
+        self.driver.get(self.live_server_url)
+
+        # click on favorites
+        self.driver.find_element_by_id('navbar_favorites').click()
+
+        self.assertEqual(self.driver.title, 'Login')
+
+    def test_fail_access_user_account(self):
+        self.driver.get(self.live_server_url)
+
+        # click on user account
+        self.driver.find_element_by_id('navbar_account').click()
+
+        self.assertEqual(self.driver.title, 'Login')
