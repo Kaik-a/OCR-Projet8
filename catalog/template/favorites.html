@@ -35,7 +35,7 @@
                             {% endwith %}
                             <span class="score">
                                 {% with product.nutrition_grade_fr as nutrition_grade %}
-                                    {{ nutriscores|get_value_for_key:nutrition_grade }}
+                                    <p style=" color: {{ nutriscores|get_color_for_key:nutrition_grade }}">{{ nutriscores|get_value_for_key:nutrition_grade }}</p>
                                 {% endwith %}
                             </span>
                         </figure>
@@ -61,7 +61,7 @@
                                     {% endwith %}
                                     <span class="score">
                                         {% with product.nutrition_grade_fr as nutrition_grade %}
-                                            {{ nutriscores|get_value_for_key:nutrition_grade }}
+                                            <p style="color: {{ nutriscores|get_color_for_key:nutrition_grade }}">{{ nutriscores|get_value_for_key:nutrition_grade }}</p>
                                         {% endwith %}
                                     </span>
                                 </figure>

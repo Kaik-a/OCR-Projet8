@@ -1,9 +1,9 @@
 NUTRISCORE = {
-    'A': 'Ⓐ',
-    'B': 'Ⓑ',
-    'C': 'Ⓒ',
-    'D': 'Ⓓ',
-    'E': 'Ⓔ',
+    'A': ('Ⓐ', "#328F00"),
+    'B': ('Ⓑ', "#54EA03"),
+    'C': ('Ⓒ', "#FFDC00"),
+    'D': ('Ⓓ', "#FF9B00"),
+    'E': ('Ⓔ', "#FF2E00")
 }
 
 # max value for nutriments for being low and moderate

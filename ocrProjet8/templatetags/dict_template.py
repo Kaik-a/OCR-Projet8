@@ -30,4 +30,9 @@ def get_nutriment(nutriment: Dict, categories: str) -> str:
 
 @register.filter(name='get_value_for_key')
 def get_value_for_key(dictionary: Dict, key: str) -> str:
-    return dictionary.get(key.upper())
+    return dictionary.get(key.upper())[0]
+
+
+@register.filter(name='get_color_for_key')
+def get_color_for_key(dictionary: Dict, key: str) -> str:
+    return dictionary.get(key.upper())[1]
