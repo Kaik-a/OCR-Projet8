@@ -74,12 +74,14 @@ class TestAuthenticated(TestCase):
     """Tests while authenticated"""
     product_1 = Product(
         id=uuid4(),
-        product_name_fr='test_product_1'
+        product_name_fr='test_product_1',
+        nutrition_grade_fr='A'
     )
 
     product_2 = Product(
         id=uuid4(),
-        product_name_fr='test_product_2'
+        product_name_fr='test_product_2',
+        nutrition_grade_fr='C'
     )
 
     def setUp(self) -> None:

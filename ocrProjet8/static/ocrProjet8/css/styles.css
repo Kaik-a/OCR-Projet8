@@ -10011,7 +10011,8 @@ hr.divider {
 }
 
 .product {
-  width: 50px;
+  max-width: 50px;
+  min-height: 70px;
 }
 
 .products {
