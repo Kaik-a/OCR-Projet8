@@ -61,8 +61,18 @@ def subscribe(request):
                     last_name=form.data.get('last_name'),
                     email=form.data.get('email')
                 )
+                messages.add_message(
+                    request,
+                    25,
+                    f"L'utilisateur {form.data.get('login')} a bien été créé, "
+                    f"vous pouvez dès à présent vous connecter"
+                )
             except IntegrityError as e:
-                print(e)
+                messages.add_message(
+                    request,
+                    40,
+                    f'Echec lors de la création du compte: {e}'
+                )
             form_connect = LoginForm()
 
             return redirect(reverse('accounts:login'), form=form_connect)

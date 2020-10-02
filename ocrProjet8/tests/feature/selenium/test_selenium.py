@@ -71,3 +71,12 @@ class SeleniumBasedTestCase(LiveServerTestCase):
         self.assertEqual(self.driver.title, 'Favoris')
 
         self.driver.close()
+
+    def test_delete_favorite(self):
+        ...
+
+    def fail_access_favorite(self):
+        ...
+
+    def fail_access_user_account(self):
+        ...
