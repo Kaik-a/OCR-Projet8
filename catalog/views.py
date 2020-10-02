@@ -10,6 +10,7 @@ from django.db import IntegrityError
 from django.shortcuts import render, redirect
 
 from . import NUTRISCORE
+from .commands.commands import get_better_products, get_favorite_info, get_delete_info
 from .models import Product, Favorite
 
 
@@ -42,18 +43,8 @@ def favorites(request, user: str):
 
 
 def results(request, base_product):
-    base_product = Product.objects.get(id=base_product)
-    categories: List = ast.literal_eval(base_product.categories_tags)
-    nutrition_grade: str = base_product.nutrition_grade_fr
-    products: List[Product] = []
+    products, base_product = get_better_products(base_product)
 
-    for category in categories:
-        [products.append(product) for product in Product.objects.filter(
-            categories_tags__contains=category,
-            nutrition_grade_fr__cn=nutrition_grade
-        )]
-
-    products.sort(key=lambda x: x.nutrition_grade_fr)
     paginator = Paginator(products, 6)
 
     page = request.GET.get('page')
@@ -74,18 +65,11 @@ def results(request, base_product):
 def save(request, base_product: UUID, substitute_product: UUID):
     user = request.user
 
-    base = Product.objects.get(id=base_product)
-    substitute = Product.objects.get(id=substitute_product)
-
-    new_favorite: Favorite = Favorite(
-        substitued=base,
-        substitute=substitute,
-        date=datetime.datetime.now(),
-        user=user
-    )
+    new_favorite, substitute = get_favorite_info(base_product, substitute_product, user)
 
     try:
         new_favorite.save()
+
     except IntegrityError as e:
         messages.add_message(
             request,
@@ -108,9 +92,8 @@ def save(request, base_product: UUID, substitute_product: UUID):
 def delete_favorite(request, product_id: UUID):
     user = request.user
 
-    to_delete = Favorite.objects.get(substitute=product_id, user=user)
+    to_delete, product_name = get_delete_info(product_id, user)
 
-    product_name = Product.objects.get(id=product_id).product_name_fr
     try:
         to_delete.delete()
     except IntegrityError as e:

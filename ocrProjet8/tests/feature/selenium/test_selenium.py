@@ -28,6 +28,8 @@ class SeleniumBasedTestCase(LiveServerTestCase):
                            '/MacOS/firefox-bin',
         )
 
+        self.driver.implicitly_wait(10)
+
         self.product_1 = Product(
                 id=uuid4(),
                 product_name_fr='produit bon',

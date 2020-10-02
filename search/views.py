@@ -4,6 +4,10 @@ from catalog.models import Product
 
 
 class ProductAutocomplete(autocomplete.Select2QuerySetView):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.q = None
+
     def get_queryset(self):
         query_set = Product.objects.all()
 
