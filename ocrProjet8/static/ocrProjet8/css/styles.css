@@ -10024,7 +10024,7 @@ hr.divider {
 }
 
 #pur-beurre-icon {
-  background-image: url("..//assets/img/logo_pur_beurre.png");
+  background-image: url("../assets/img/logo_pur_beurre.png");
   display: block;
 }
 
@@ -10158,7 +10158,7 @@ hr.light {
 header.masthead {
   padding-top: 10rem;
   padding-bottom: calc(10rem - 4.5rem);
-  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("..//assets/img/bg-masthead.jpg");
+  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("../assets/img/bg-masthead.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;
