@@ -12,7 +12,6 @@ from search.navbar_decorator import navbar_search_decorator
 
 def home(request):
     if request.method == "POST":
-        import pdb;pdb.set_trace()
         form: SearchForm = SearchForm(request.POST)
 
         if form.is_valid():

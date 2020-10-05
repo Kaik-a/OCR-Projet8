@@ -3,7 +3,9 @@ from uuid import uuid4
 
 from django.contrib.auth.models import User
 from django.test import LiveServerTestCase
+from pytest import raises
 from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver import DesiredCapabilities
 from selenium.webdriver.common.keys import Keys
 
@@ -114,10 +116,9 @@ class SeleniumBasedTestCase(LiveServerTestCase):
         """An user non authenticated shouldn't access to favorites."""
         self.driver.get(self.live_server_url)
 
-        # click on favorites
-        self.driver.find_element_by_id('navbar_favorites').click()
-
-        self.assertEqual(self.driver.title, 'Login')
+        # cannot find favorites
+        with raises(NoSuchElementException):
+            self.driver.find_element_by_id('navbar_favorites')
 
     def test_fail_access_user_account(self):
         """An user non authenticated shouldn't access to user_account."""
