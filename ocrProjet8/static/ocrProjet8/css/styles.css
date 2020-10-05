@@ -10091,7 +10091,21 @@ hr.light {
   #navbar_account, #navbar_logout, #navbar_favorites {
     color: black !important;
   }
+
+  #remy-img, #colette-img {
+    max-width: 180px;
+  }
 }
+@media screen and (min-width: 1024px) {
+  #remy-img, #colette-img {
+    width: 250px;
+  }
+}
+.container, .container-fluid, .container-sm, .container-md, .container-lg, .container-xl {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 #mainNav {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   background-color: #FFFFFF;

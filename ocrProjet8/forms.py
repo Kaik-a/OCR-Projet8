@@ -6,5 +6,6 @@ class ContactForm(forms.Form):
     email = forms.EmailField(label="E-mail", max_length=100)
     message = forms.CharField(
         label="Message",
-        widget=forms.TextInput(attrs={'class': 'special', 'size': '40'}))
+        widget=forms.Textarea(attrs={'cols': 0})
+    )
 

@@ -10,7 +10,7 @@
         <hr class="divider my-4" />
     </div>
     <div class="col-lg-8 align-self-baseline">
-        <form id="contact-form" class="contact-form-class text-white" action="" method="post">
+        <form id="contact-form" class="contact-form-class text-white {% if request.user_agent.is_mobile%}text-right{% endif %}" action="" method="post">
             {% csrf_token %}
             {{ form.as_p }}
             {{ form.media }}
