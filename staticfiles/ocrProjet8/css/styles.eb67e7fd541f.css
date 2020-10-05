@@ -10024,7 +10024,7 @@ hr.divider {
 }
 
 #pur-beurre-icon {
-  background-image: url("../assets/img/logo_pur_beurre.png");
+  background-image: url("../assets/img/logo_pur_beurre.523530a5ad69.png");
   display: block;
 }
 
@@ -10089,73 +10089,73 @@ hr.light {
 
 @media screen and (max-width: 1024px) {
   #navbar_account, #navbar_logout, #navbar_favorites {
-    color: black !important;
+    color: black;
   }
 }
-#mainNav {
+nav {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   background-color: #FFFFFF;
   transition: background-color 0.2s ease;
 }
-#mainNav .navbar-brand {
+nav .navbar-brand {
   font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-weight: 700;
   color: #212529;
 }
-#mainNav .navbar-nav .nav-item .nav-link {
+nav .navbar-nav .nav-item .nav-link {
   color: #6c757d;
   font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-weight: 700;
   font-size: 0.9rem;
   padding: 0.75rem 0;
 }
-#mainNav .navbar-nav .nav-item .nav-link:hover, #mainNav .navbar-nav .nav-item .nav-link:active {
+nav .navbar-nav .nav-item .nav-link:hover, nav .navbar-nav .nav-item .nav-link:active {
   color: #f4623a;
 }
-#mainNav .navbar-nav .nav-item .nav-link.active {
+nav .navbar-nav .nav-item .nav-link.active {
   color: #f4623a !important;
 }
-#mainNav .navbar-nav .nav-item .navbar-icon, #mainNav .navbar-nav .nav-item #pur-beurre {
+nav .navbar-nav .nav-item .navbar-icon {
   color: #FFFFFF;
 }
 @media (min-width: 992px) {
-  #mainNav {
+  nav {
     box-shadow: none;
     background-color: transparent;
   }
-  #mainNav .navbar-brand {
+  nav .navbar-brand {
     color: rgba(255, 255, 255, 0.7);
   }
-  #mainNav .navbar-brand:hover {
+  nav .navbar-brand:hover {
     color: #FFFFFF;
   }
-  #mainNav .navbar-nav .nav-item .nav-link {
+  nav .navbar-nav .nav-item .nav-link {
     color: rgba(255, 255, 255, 0.7);
     padding: 0 1rem;
   }
-  #mainNav .navbar-nav .nav-item .nav-link:hover {
+  nav .navbar-nav .nav-item .nav-link:hover {
     color: #FFFFFF;
   }
-  #mainNav .navbar-nav .nav-item:last-child .nav-link {
+  nav .navbar-nav .nav-item:last-child .nav-link {
     padding-right: 0;
   }
-  #mainNav.navbar-scrolled {
+  nav.navbar-scrolled {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
     background-color: #FFFFFF;
   }
-  #mainNav.navbar-scrolled .navbar-brand {
+  nav.navbar-scrolled .navbar-brand {
     color: #212529;
   }
-  #mainNav.navbar-scrolled .navbar-brand:hover {
+  nav.navbar-scrolled .navbar-brand:hover {
     color: #f4623a;
   }
-  #mainNav.navbar-scrolled .navbar-nav .nav-item .nav-link {
+  nav.navbar-scrolled .navbar-nav .nav-item .nav-link {
     color: #212529;
   }
-  #mainNav.navbar-scrolled .navbar-nav .nav-item .nav-link:hover {
+  nav.navbar-scrolled .navbar-nav .nav-item .nav-link:hover {
     color: #f4623a;
   }
-  #mainNav.navbar-scrolled .navbar-nav .nav-item .navbar-icon, #mainNav.navbar-scrolled .navbar-nav .nav-item #welcome_navbar {
+  nav.navbar-scrolled .navbar-nav .nav-item .navbar-icon, nav.navbar-scrolled .navbar-nav .nav-item #welcome_navbar {
     color: black;
   }
 }
@@ -10163,7 +10163,7 @@ hr.light {
 header.masthead {
   padding-top: 10rem;
   padding-bottom: calc(10rem - 4.5rem);
-  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("../assets/img/bg-masthead.jpg");
+  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("../assets/img/bg-masthead.9b4f99e12847.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: scroll;

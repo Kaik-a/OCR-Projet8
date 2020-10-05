@@ -4,14 +4,17 @@
       <strong class="mr-auto">
         {% if message.tags == 'error' %}
           <i class="fas fa-times mr-2"></i>
+            Erreur
         {% elif message.tags == 'warning' %}
           <i class="fas fa-exclamation mr-2"></i>
+            Attention
         {% elif message.tags == 'info' %}
           <i class="fas fa-info mr-2"></i>
+            Information
         {% elif message.tags == 'success' %}
           <i class="fas fa-check mr-2"></i>
+            Succès
         {% endif %}
-        {{message.tags|capfirst}}
       </strong>
       <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
         <span aria-hidden="true">&times;</span>

@@ -22,6 +22,7 @@
         <link href="{% static "ocrProjet8/css/styles.css" %}" rel="stylesheet" />
     </head>
     <body id="page-top">
+    <div class="container-fluid">
         {% include "message.html" %}
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
@@ -44,19 +45,19 @@
                                 </form>
                             {% endif %}
                         </a></li>
-                        {% if not request.user.is_anonymous %}
+                        {% if not request.user.is_anonymous and request.user_agent.is_pc %}
                         <li class="nav-item"><a class="nav-link js-scroll-trigger">
                             <label id="welcome_navbar" for="navbar_account">Bonjour, {{ request.user.first_name }}!</label>
                         </a></li>
                         {% endif %}
                         <li class="nav-item"><a class="nav-link js-scroll-trigger">
-                            <a id="navbar_account" href="{% if request.user.is_anonymous %}{% url 'accounts:login' %}{% else %}{% url 'accounts:user_account'%}{% endif %}"><i class="fas fa-user"></i></a>
+                            <a id="navbar_account" class="navbar-icon" href="{% if request.user.is_anonymous %}{% url 'accounts:login' %}{% else %}{% url 'accounts:user_account'%}{% endif %}"><i class="fas fa-user"></i>{% if not request.user_agent.is_pc %} Votre Compte{% endif %}</a>
                         </a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger">
-                            <a id="navbar_favorites" href="{% url 'catalog:favorites' request.user.id %}"><img src="{% static "ocrProjet8/assets/img/carrotLogo.png" %}" id="carrot-logo" class="d-inline-block align-top" alt=""></a>
+                            <a id="navbar_favorites" class="navbar-icon" href="{% url 'catalog:favorites' request.user.id %}"><img src="{% static "ocrProjet8/assets/img/carrotLogo.png" %}" id="carrot-logo" class="d-inline-block align-top" alt="">{% if not request.user_agent.is_pc %} Vos Favoris{% endif %}</a>
                         </a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger">
-                            <a id="navbar_logout" href="{% url 'accounts:logout' %}"><i class="fas fa-sign-out-alt"></i></a>
+                            <a id="navbar_logout" class="navbar-icon" href="{% url 'accounts:logout' %}"><i class="fas fa-sign-out-alt"></i>{% if not request.user_agent.is_pc %} Déconnexion{% endif %}</a>
                         </a></li>
                     </ul>
                 </div>
@@ -76,6 +77,9 @@
         <!-- About-->
         {% block main %}
         {% endblock main %}
+
+        {% block pagination %}
+        {% endblock pagination %}
         <!-- Footer-->
         <footer class="bg-light py-5">
             <div class="container">
@@ -89,6 +93,7 @@
                 </div>
             </div>
         </footer>
+    </div>
         <!-- Bootstrap core JS-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>

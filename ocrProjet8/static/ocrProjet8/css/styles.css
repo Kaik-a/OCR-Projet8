@@ -10087,6 +10087,11 @@ hr.light {
   right: 1rem;
 }
 
+@media screen and (max-width: 1024px) {
+  #navbar_account, #navbar_logout, #navbar_favorites {
+    color: black !important;
+  }
+}
 #mainNav {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
   background-color: #FFFFFF;
@@ -10110,7 +10115,7 @@ hr.light {
 #mainNav .navbar-nav .nav-item .nav-link.active {
   color: #f4623a !important;
 }
-#mainNav .navbar-nav .nav-item #navbar_account, #mainNav .navbar-nav .nav-item #navbar_logout, #mainNav .navbar-nav .nav-item #navbar_account {
+#mainNav .navbar-nav .nav-item .navbar-icon, #mainNav .navbar-nav .nav-item #pur-beurre {
   color: #FFFFFF;
 }
 @media (min-width: 992px) {
@@ -10150,7 +10155,7 @@ hr.light {
   #mainNav.navbar-scrolled .navbar-nav .nav-item .nav-link:hover {
     color: #f4623a;
   }
-  #mainNav.navbar-scrolled .navbar-nav .nav-item #navbar_account, #mainNav.navbar-scrolled .navbar-nav .nav-item #navbar_logout, #mainNav.navbar-scrolled .navbar-nav .nav-item #welcome_navbar {
+  #mainNav.navbar-scrolled .navbar-nav .nav-item .navbar-icon, #mainNav.navbar-scrolled .navbar-nav .nav-item #welcome_navbar {
     color: black;
   }
 }
