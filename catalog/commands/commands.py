@@ -1,3 +1,4 @@
+"""Commands for catalog"""
 import ast
 from datetime import datetime
 from typing import List, Tuple
@@ -21,10 +22,9 @@ def get_better_products(base_product: Product) -> Tuple[List[Product], Product]:
     products: List[Product] = []
 
     for category in categories:
-        [products.append(product) for product in Product.objects.filter(
-            categories_tags__contains=category,
-            nutrition_grade_fr__cn=nutrition_grade
-        )]
+        products: List[Product] = Product.objects.filter(
+            categories_tags__contains=category, nutrition_grade_fr__cn=nutrition_grade
+        )
 
     products.sort(key=lambda x: x.nutrition_grade_fr)
 
@@ -32,9 +32,7 @@ def get_better_products(base_product: Product) -> Tuple[List[Product], Product]:
 
 
 def get_favorite_info(
-        base_product: UUID,
-        substitute_product: UUID,
-        user: User
+    base_product: UUID, substitute_product: UUID, user: User
 ) -> Tuple[Favorite, Product]:
     """
     Get information on favorite.
@@ -48,12 +46,12 @@ def get_favorite_info(
     base = Product.objects.get(id=base_product)
     substitute = Product.objects.get(id=substitute_product)
 
-    return Favorite(
-        substitued=base,
-        substitute=substitute,
-        date=datetime.now(),
-        user=user
-    ), substitute
+    return (
+        Favorite(
+            substitued=base, substitute=substitute, date=datetime.now(), user=user
+        ),
+        substitute,
+    )
 
 
 def get_delete_info(product_id: UUID, user: User) -> Tuple[Favorite, str]:

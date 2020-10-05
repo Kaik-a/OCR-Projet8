@@ -1,12 +1,12 @@
 """Views for accounts"""
-from django.contrib.auth import authenticate, login, logout  # pylint: disable=import-error
-from django.contrib.auth.decorators import login_required  # pylint: disable=import-error
-from django.contrib.auth.models import User  # pylint: disable=import-error
-from django.contrib import messages  # pylint: disable=import-error
-from django.db import IntegrityError  # pylint: disable=import-error
-from django.http import HttpResponse # pylint: disable=import-error
-from django.shortcuts import redirect, render  # pylint: disable=import-error
-from django.urls import reverse  # pylint: disable=import-error
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.db import IntegrityError
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
+from django.urls import reverse
 
 from search.navbar_decorator import navbar_search_decorator
 from .forms import LoginForm, SubscribeForm
@@ -20,8 +20,8 @@ def login_user(request, form: LoginForm) -> HttpResponse:
     :param LoginForm form: form to retrieve login data
     :return: HttpResponse
     """
-    username = form.data.get('login')
-    password = form.data.get('password')
+    username = form.data.get("login")
+    password = form.data.get("password")
     if username and password:
         user: User = authenticate(
             username=username,
@@ -30,23 +30,19 @@ def login_user(request, form: LoginForm) -> HttpResponse:
         if user:
             login(request, user)
             messages.add_message(
-                request,
-                25,
-                f"Bonjour {user.first_name}! Vous êtes maintenant connecté"
+                request, 25, f"Bonjour {user.first_name}! Vous êtes maintenant connecté"
             )
-            return redirect(
-                reverse('accounts:user_account')
-            )
+            return redirect(reverse("accounts:user_account"))
 
         messages.add_message(
             request,
             40,
-            'Aucun compte recensé avec cette combinaison. Votre email ou mot de '
-            'passe sont peut être incorrects?'
+            "Aucun compte recensé avec cette combinaison. Votre email ou mot de "
+            "passe sont peut être incorrects?",
         )
-        return render(request, 'login.html', {'form': form})
+        return render(request, "login.html", {"form": form})
 
-    return render(request, 'login.html', {'form': form})
+    return render(request, "login.html", {"form": form})
 
 
 @navbar_search_decorator
@@ -57,7 +53,7 @@ def get_user_info(request) -> HttpResponse:
     :param request: django request
     :return: HttpResponse
     """
-    if request.method == 'POST':
+    if request.method == "POST":
         form = LoginForm(request.POST)
 
         if form.is_valid():
@@ -65,7 +61,7 @@ def get_user_info(request) -> HttpResponse:
     else:
         form = LoginForm()
 
-    return render(request, 'login.html', {'form': form})
+    return render(request, "login.html", {"form": form})
 
 
 @navbar_search_decorator
@@ -76,36 +72,34 @@ def subscribe(request) -> HttpResponse:
     :param request: django request
     :return: HttpResponse
     """
-    if request.method == 'POST':
+    if request.method == "POST":
         form = SubscribeForm(request.POST)
         if form.is_valid():
             try:
                 User.objects.create_user(
-                    username=form.data.get('login'),
-                    password=form.data.get('password'),
-                    first_name=form.data.get('first_name'),
-                    last_name=form.data.get('last_name'),
-                    email=form.data.get('email')
+                    username=form.data.get("login"),
+                    password=form.data.get("password"),
+                    first_name=form.data.get("first_name"),
+                    last_name=form.data.get("last_name"),
+                    email=form.data.get("email"),
                 )
                 messages.add_message(
                     request,
                     25,
                     f"L'utilisateur {form.data.get('login')} a bien été créé, "
-                    f"vous pouvez dès à présent vous connecter"
+                    f"vous pouvez dès à présent vous connecter",
                 )
             except IntegrityError as error:
                 messages.add_message(
-                    request,
-                    40,
-                    f'Echec lors de la création du compte: {error}'
+                    request, 40, f"Echec lors de la création du compte: {error}"
                 )
             form_connect = LoginForm()
 
-            return redirect(reverse('accounts:login'), form=form_connect)
+            return redirect(reverse("accounts:login"), form=form_connect)
     else:
         form = SubscribeForm()
 
-    return render(request, 'subscribe.html', {'form': form})
+    return render(request, "subscribe.html", {"form": form})
 
 
 @login_required
@@ -118,12 +112,8 @@ def sign_out(request) -> HttpResponse:
     """
     logout(request)
 
-    messages.add_message(
-        request,
-        25,
-        'Au revoir!'
-    )
-    return redirect(reverse('home'))
+    messages.add_message(request, 25, "Au revoir!")
+    return redirect(reverse("home"))
 
 
 @navbar_search_decorator

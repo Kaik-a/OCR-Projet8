@@ -1,5 +1,8 @@
+"""Apps for catalog"""
 from django.apps import AppConfig
 
 
 class DatabaseConfig(AppConfig):
-    name = 'catalog'
+    """Config for catalog"""
+
+    name = "catalog"
