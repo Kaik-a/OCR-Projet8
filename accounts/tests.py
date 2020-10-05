@@ -1,9 +1,10 @@
+"""Tests on account module and authentication"""
 from datetime import datetime
 from uuid import uuid4
 
-from django.contrib.auth.models import User
-from django.test import TestCase, RequestFactory
-from django.urls import reverse
+from django.contrib.auth.models import User   # pylint: disable=import-error
+from django.test import TestCase, RequestFactory  # pylint: disable=import-error
+from django.urls import reverse  # pylint: disable=import-error
 
 from catalog.models import Product, Favorite
 
@@ -84,7 +85,7 @@ class TestAuthenticated(TestCase):
         nutrition_grade_fr='C'
     )
 
-    def setUp(self) -> None:
+    def setUp(self) -> None:  # pylint: disable=invalid-name
         """Tests configuration"""
         self.factory = RequestFactory()
         self.test_user = User.objects.create_user(
@@ -175,5 +176,3 @@ class TestAuthenticated(TestCase):
 
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
-
-

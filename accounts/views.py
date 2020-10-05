@@ -1,16 +1,25 @@
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
-from django.contrib import messages
-from django.db import IntegrityError
-from django.shortcuts import redirect, render
-from django.urls import reverse
+"""Views for accounts"""
+from django.contrib.auth import authenticate, login, logout  # pylint: disable=import-error
+from django.contrib.auth.decorators import login_required  # pylint: disable=import-error
+from django.contrib.auth.models import User  # pylint: disable=import-error
+from django.contrib import messages  # pylint: disable=import-error
+from django.db import IntegrityError  # pylint: disable=import-error
+from django.http import HttpResponse # pylint: disable=import-error
+from django.shortcuts import redirect, render  # pylint: disable=import-error
+from django.urls import reverse  # pylint: disable=import-error
 
 from search.navbar_decorator import navbar_search_decorator
 from .forms import LoginForm, SubscribeForm
 
 
-def login_user(request, form: LoginForm):
+def login_user(request, form: LoginForm) -> HttpResponse:
+    """
+    Verify login.
+
+    :param request: django request
+    :param LoginForm form: form to retrieve login data
+    :return: HttpResponse
+    """
     username = form.data.get('login')
     password = form.data.get('password')
     if username and password:
@@ -28,18 +37,26 @@ def login_user(request, form: LoginForm):
             return redirect(
                 reverse('accounts:user_account')
             )
-        else:
-            messages.add_message(
-                request,
-                40,
-                'Aucun compte recensé avec cette combinaison. Votre email ou mot de '
-                'passe sont peut être incorrects?'
-            )
-            return render(request, 'login.html', {'form': form})
+
+        messages.add_message(
+            request,
+            40,
+            'Aucun compte recensé avec cette combinaison. Votre email ou mot de '
+            'passe sont peut être incorrects?'
+        )
+        return render(request, 'login.html', {'form': form})
+
+    return render(request, 'login.html', {'form': form})
 
 
 @navbar_search_decorator
-def get_user_info(request):
+def get_user_info(request) -> HttpResponse:
+    """
+    View to send login data.
+
+    :param request: django request
+    :return: HttpResponse
+    """
     if request.method == 'POST':
         form = LoginForm(request.POST)
 
@@ -52,7 +69,13 @@ def get_user_info(request):
 
 
 @navbar_search_decorator
-def subscribe(request):
+def subscribe(request) -> HttpResponse:
+    """
+    View to subscribe for a new user.
+
+    :param request: django request
+    :return: HttpResponse
+    """
     if request.method == 'POST':
         form = SubscribeForm(request.POST)
         if form.is_valid():
@@ -70,11 +93,11 @@ def subscribe(request):
                     f"L'utilisateur {form.data.get('login')} a bien été créé, "
                     f"vous pouvez dès à présent vous connecter"
                 )
-            except IntegrityError as e:
+            except IntegrityError as error:
                 messages.add_message(
                     request,
                     40,
-                    f'Echec lors de la création du compte: {e}'
+                    f'Echec lors de la création du compte: {error}'
                 )
             form_connect = LoginForm()
 
@@ -86,7 +109,13 @@ def subscribe(request):
 
 
 @login_required
-def sign_out(request):
+def sign_out(request) -> HttpResponse:
+    """
+    View to log out.
+
+    :param request: django request
+    :return: HttpResponse
+    """
     logout(request)
 
     messages.add_message(
@@ -99,5 +128,11 @@ def sign_out(request):
 
 @navbar_search_decorator
 @login_required
-def user_account(request):
+def user_account(request) -> HttpResponse:
+    """
+    View to get user account.
+
+    :param request: django request
+    :return: HttpResponse
+    """
     return render(request, "user_account.html")
