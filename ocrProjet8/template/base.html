@@ -51,14 +51,16 @@
                         </a></li>
                         {% endif %}
                         <li class="nav-item"><a class="nav-link js-scroll-trigger">
-                            <a id="navbar_account" class="navbar-icon" href="{% if request.user.is_anonymous %}{% url 'accounts:login' %}{% else %}{% url 'accounts:user_account'%}{% endif %}"><i class="fas fa-user"></i>{% if not request.user_agent.is_pc %} Votre Compte{% endif %}</a>
+                            <a id="navbar_account" class="navbar-icon" href="{% if request.user.is_anonymous %}{% url 'accounts:login' %}{% else %}{% url 'accounts:user_account'%}{% endif %}"><i class="fas fa-user"></i>{% if not request.user_agent.is_pc %}{% if request.user.is_anonymous %} Login{% else %} Votre Compte{% endif %}{% endif %}</a>
                         </a></li>
+                        {% if not request.user.is_anonymous %}
                         <li class="nav-item"><a class="nav-link js-scroll-trigger">
                             <a id="navbar_favorites" class="navbar-icon" href="{% url 'catalog:favorites' request.user.id %}"><img src="{% static "ocrProjet8/assets/img/carrotLogo.png" %}" id="carrot-logo" class="d-inline-block align-top" alt="">{% if not request.user_agent.is_pc %} Vos Favoris{% endif %}</a>
                         </a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger">
                             <a id="navbar_logout" class="navbar-icon" href="{% url 'accounts:logout' %}"><i class="fas fa-sign-out-alt"></i>{% if not request.user_agent.is_pc %} Déconnexion{% endif %}</a>
                         </a></li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
