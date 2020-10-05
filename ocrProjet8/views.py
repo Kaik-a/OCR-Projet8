@@ -7,10 +7,12 @@ from django.urls import reverse
 from catalog.models import Product
 from ocrProjet8.forms import ContactForm
 from search.forms import SearchForm
+from search.navbar_decorator import navbar_search_decorator
 
 
 def home(request):
     if request.method == "POST":
+        import pdb;pdb.set_trace()
         form: SearchForm = SearchForm(request.POST)
 
         if form.is_valid():
@@ -25,10 +27,12 @@ def home(request):
     return render(request, 'home.html', {'form': form})
 
 
+@navbar_search_decorator
 def legal_notice(request):
     return render(request, 'notice.html')
 
 
+@navbar_search_decorator
 def contact(request):
     if request.method == "POST":
         form: ContactForm = ContactForm(request.POST)

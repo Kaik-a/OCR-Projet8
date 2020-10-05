@@ -6,6 +6,7 @@ from django.db import IntegrityError
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
+from search.navbar_decorator import navbar_search_decorator
 from .forms import LoginForm, SubscribeForm
 
 
@@ -37,6 +38,7 @@ def login_user(request, form: LoginForm):
             return render(request, 'login.html', {'form': form})
 
 
+@navbar_search_decorator
 def get_user_info(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
@@ -49,6 +51,7 @@ def get_user_info(request):
     return render(request, 'login.html', {'form': form})
 
 
+@navbar_search_decorator
 def subscribe(request):
     if request.method == 'POST':
         form = SubscribeForm(request.POST)
@@ -94,6 +97,7 @@ def sign_out(request):
     return redirect(reverse('home'))
 
 
+@navbar_search_decorator
 @login_required
 def user_account(request):
     return render(request, "user_account.html")

@@ -8,11 +8,13 @@ from django.core.paginator import Paginator
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
 
+from search.navbar_decorator import navbar_search_decorator
 from . import NUTRISCORE
 from .commands.commands import get_better_products, get_favorite_info, get_delete_info
 from .models import Product, Favorite
 
 
+@navbar_search_decorator
 def aliment(request, product_id):
     product = Product.objects.get(id=product_id)
     nutriments: List = ast.literal_eval(product.nutriments)
@@ -22,6 +24,7 @@ def aliment(request, product_id):
     })
 
 
+@navbar_search_decorator
 @login_required
 def favorites(request, user: str):
     products: List[Product] = [Product.objects.get(id=favorite.substitute.id)
@@ -41,6 +44,7 @@ def favorites(request, user: str):
     )
 
 
+@navbar_search_decorator
 def results(request, base_product):
     products, base_product = get_better_products(base_product)
 
