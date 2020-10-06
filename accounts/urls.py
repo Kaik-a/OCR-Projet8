@@ -1,10 +1,11 @@
 """Urls for account"""
 from django.urls import path
+
 from . import views
 
-app_name = "accounts"  # pylint: disable=invalid-name
+app_name = "accounts"
 
-urlpatterns = [  # pylint: disable=invalid-name
+urlpatterns = [
     path("authenticate/", views.login, name="authenticate"),
     path("login/", views.get_user_info, name="login"),
     path("subscription/", views.subscribe, name="subscription"),

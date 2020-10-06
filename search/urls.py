@@ -1,13 +1,14 @@
+"""Urls for module search"""
 from django.urls import path
 
-from . import views
-from .views import ProductAutocomplete
 from catalog.models import Product
+
+from .views import ProductAutocomplete
 
 urlpatterns = [
     path(
-        'product-autocomplete/',
+        "product-autocomplete/",
         ProductAutocomplete.as_view(model=Product),
-        name='product-autocomplete'
+        name="product-autocomplete",
     ),
 ]

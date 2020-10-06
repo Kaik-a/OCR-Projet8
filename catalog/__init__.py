@@ -1,6 +1,7 @@
 """Init for catalog"""
+from typing import Dict
 
-NUTRISCORE = {
+NUTRISCORE: Dict[str, tuple] = {
     "A": ("Ⓐ", "#328F00"),
     "B": ("Ⓑ", "#54EA03"),
     "C": ("Ⓒ", "#FFDC00"),
@@ -10,7 +11,7 @@ NUTRISCORE = {
 
 # max value for nutriments for being low and moderate
 # values are divided by two for drinks
-NUTRIMENTS = {
+NUTRIMENTS: Dict[str, Dict] = {
     "saturated-fat": {
         "value": {"low": 1.5, "moderate": 5},
         "traduction": "Acides gras saturés",

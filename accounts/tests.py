@@ -3,10 +3,10 @@ from datetime import datetime
 from uuid import uuid4
 
 from django.contrib.auth.models import User
-from django.test import TestCase, RequestFactory
+from django.test import RequestFactory, TestCase
 from django.urls import reverse
 
-from catalog.models import Product, Favorite
+from catalog.models import Favorite, Product
 
 
 class TestUnauthenticated(TestCase):
@@ -74,7 +74,7 @@ class TestAuthenticated(TestCase):
         id=uuid4(), product_name_fr="test_product_2", nutrition_grade_fr="C"
     )
 
-    def setUp(self) -> None:  # pylint: disable=invalid-name
+    def setUp(self) -> None:
         """Tests configuration"""
         self.factory = RequestFactory()
         self.test_user = User.objects.create_user(

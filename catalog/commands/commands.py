@@ -6,7 +6,7 @@ from uuid import UUID
 
 from django.contrib.auth.models import User
 
-from catalog.models import Product, Favorite
+from catalog.models import Favorite, Product
 
 
 def get_better_products(base_product: Product) -> Tuple[List[Product], Product]:
@@ -22,9 +22,14 @@ def get_better_products(base_product: Product) -> Tuple[List[Product], Product]:
     products: List[Product] = []
 
     for category in categories:
-        products: List[Product] = Product.objects.filter(
-            categories_tags__contains=category, nutrition_grade_fr__cn=nutrition_grade
-        )
+        # pylint: disable=expression-not-assigned
+        [
+            products.append(product)
+            for product in Product.objects.filter(
+                categories_tags__contains=category,
+                nutrition_grade_fr__cn=nutrition_grade,
+            )
+        ]
 
     products.sort(key=lambda x: x.nutrition_grade_fr)
 

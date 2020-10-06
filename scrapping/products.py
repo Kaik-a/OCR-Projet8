@@ -1,7 +1,8 @@
 """Scrapp Products on off"""
 
-import requests
 from typing import List
+
+import requests
 
 from . import BASE_SEARCH_PARAMS, SEARCH_URL
 
@@ -16,12 +17,7 @@ def get_products(categories: List) -> List:
     products = list()
     params = BASE_SEARCH_PARAMS
     for category in categories:
-        params['tag_0'] = category
-        products += (
-            requests.get(
-                SEARCH_URL,
-                params
-            ).json()['products']
-        )
+        params["tag_0"] = category
+        products += requests.get(SEARCH_URL, params).json()["products"]
 
     return products

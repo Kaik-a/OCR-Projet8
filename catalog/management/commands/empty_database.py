@@ -1,7 +1,7 @@
 """Command to empty the default database"""
 from django.core.management.base import BaseCommand, CommandError
 
-from catalog.models import Category, Product, Favorite
+from catalog.models import Category, Favorite, Product
 
 
 class Command(BaseCommand):

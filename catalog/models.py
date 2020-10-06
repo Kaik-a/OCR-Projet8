@@ -1,17 +1,21 @@
+"""Models for catalog"""
 import uuid
 
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 
 
 class CompareNutriscore(models.Lookup):
+    """Lookip for nutriscore"""
+
     lookup_name = "cn"
 
     def as_sql(self, compiler, connection):
+        """Compare nutriscores"""
         lhs, lhs_params = self.process_lhs(compiler, connection)
         rhs, rhs_params = self.process_rhs(compiler, connection)
         params = lhs_params + rhs_params
-        return "%s < %s" % (lhs, rhs), params
+        return f"{lhs} < {rhs}", params
 
 
 models.Field.register_lookup(CompareNutriscore)
@@ -29,10 +33,11 @@ class Product(models.Model):
         url_img (str): URL of the related image on OFF.
         url (str): URL on OFF
     """
+
     id = models.UUIDField(default=uuid.uuid4, primary_key=True)
     brands = models.CharField(max_length=100)
     categories_tags = models.CharField(max_length=500)
-    nutriments = models.CharField(max_length=10000, default='')
+    nutriments = models.CharField(max_length=10000, default="")
     nutrition_grade_fr = models.CharField(max_length=1)
     product_name_fr = models.CharField(max_length=100, unique=True)
     image_url = models.URLField()
@@ -50,12 +55,13 @@ class Category(models.Model):
         name (str): Name of the category.
         url (URLField): URL of the category.
     """
+
     id_category = models.UUIDField(default=uuid.uuid4, primary_key=True)
     name = models.CharField(max_length=100)
     url = models.URLField()
 
     def __str__(self):
-        return name
+        return self.name
 
 
 class Favorite(models.Model):
@@ -66,27 +72,24 @@ class Favorite(models.Model):
         substitued Product: product to find substitute for.
         date (DateTime): Date of the substitution.
     """
+
     substitute = models.ForeignKey(
-        Product,
-        on_delete=models.CASCADE,
-        related_name='fk_product_substitute'
+        Product, on_delete=models.CASCADE, related_name="fk_product_substitute"
     )
 
     substitued = models.ForeignKey(
         Product,
         on_delete=models.CASCADE,
-        related_name='fk_product_substitued',
+        related_name="fk_product_substitued",
     )
     date = models.DateTimeField()
 
-    user = models.ForeignKey(
-        User,
-        default=None,
-        on_delete=models.CASCADE
-    )
+    user = models.ForeignKey(User, default=None, on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ('substitute', 'user')
+        """Assigning unique"""
+
+        unique_together = ("substitute", "user")
 
     def __str__(self):
         return f"{self.substitued} remplacé par {self.substitute}"

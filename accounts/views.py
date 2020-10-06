@@ -1,14 +1,15 @@
 """Views for accounts"""
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.contrib import messages
 from django.db import IntegrityError
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 
 from search.navbar_decorator import navbar_search_decorator
+
 from .forms import LoginForm, SubscribeForm
 
 
