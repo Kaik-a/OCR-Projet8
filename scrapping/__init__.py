@@ -2,7 +2,7 @@
 from uuid import uuid4
 
 ID_PRODUCT = uuid4()
-
+# Find products for this categories
 GIVEN_CATEGORIES = ["Fromages", "Snacks", "Boissons", "Charcuteries", "Desserts"]
 OPENFOODFACT_URL = "https://fr.openfoodfacts.org/"
 CATEGORIES_JSON = OPENFOODFACT_URL + "categories"  # url of categories

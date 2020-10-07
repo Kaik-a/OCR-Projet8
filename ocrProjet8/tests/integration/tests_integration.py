@@ -30,17 +30,17 @@ class TestPattern(TestCase):
         self.product_1.save()
         self.product_2.save()
 
+        self.query_set = ProductAutocomplete().get_queryset()
+
 
 class TestFavorite(TestPattern):
     """Test on Favorites"""
 
     def test_save_favorite(self):
         """Try to save a Favorite"""
-        query_set = ProductAutocomplete().get_queryset()
-
         Favorite(
-            substitute=query_set[0],
-            substitued=query_set[1],
+            substitute=self.query_set[0],
+            substitued=self.query_set[1],
             user=self.user,
             date=datetime.now(),
         ).save()
@@ -49,17 +49,16 @@ class TestFavorite(TestPattern):
 
     def test_delete_favorite(self):
         """Try to delete a Favorite"""
-        query_set = ProductAutocomplete().get_queryset()
 
         Favorite(
-            substitute=query_set[0],
-            substitued=query_set[1],
+            substitute=self.query_set[0],
+            substitued=self.query_set[1],
             user=self.user,
             date=datetime.now(),
         ).save()
 
         self.assertEqual(len(Favorite.objects.all().filter(user=self.user)), 1)
 
-        Favorite.objects.get(substitute=query_set[0]).delete()
+        Favorite.objects.get(substitute=self.query_set[0]).delete()
 
         self.assertEqual(len(Favorite.objects.all().filter(user=self.user)), 0)

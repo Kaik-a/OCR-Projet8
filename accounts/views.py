@@ -21,13 +21,17 @@ def login_user(request, form: LoginForm) -> HttpResponse:
     :param LoginForm form: form to retrieve login data
     :return: HttpResponse
     """
+    # Get credentials
     username = form.data.get("login")
     password = form.data.get("password")
+
     if username and password:
+        # Authenticate with given credentials
         user: User = authenticate(
             username=username,
             password=password,
         )
+        # A user exists with given credentials
         if user:
             login(request, user)
             messages.add_message(
@@ -35,6 +39,7 @@ def login_user(request, form: LoginForm) -> HttpResponse:
             )
             return redirect(reverse("accounts:user_account"))
 
+        # No user found
         messages.add_message(
             request,
             40,

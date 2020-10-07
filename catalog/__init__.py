@@ -1,6 +1,7 @@
 """Init for catalog"""
 from typing import Dict
 
+# Dict to find characted for a key nutriscore and color associated
 NUTRISCORE: Dict[str, tuple] = {
     "A": ("Ⓐ", "#328F00"),
     "B": ("Ⓑ", "#54EA03"),
@@ -9,8 +10,9 @@ NUTRISCORE: Dict[str, tuple] = {
     "E": ("Ⓔ", "#FF2E00"),
 }
 
-# max value for nutriments for being low and moderate
-# values are divided by two for drinks
+# Constants extracted from openfoodfacts
+# max values for nutriments for being low and moderate
+# values must be divided by two for drinks
 NUTRIMENTS: Dict[str, Dict] = {
     "saturated-fat": {
         "value": {"low": 1.5, "moderate": 5},

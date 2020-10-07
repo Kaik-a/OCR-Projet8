@@ -21,6 +21,7 @@ def get_nutriment(nutriment: Dict, categories: str) -> str:
 
     nutriment_value = nutriment[key]
 
+    # If product is beverage, limits are divided by two
     if "beverage" in categories or "boisson" in categories:
         nutriment_value = nutriment_value * 2
 

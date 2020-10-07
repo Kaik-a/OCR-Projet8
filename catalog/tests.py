@@ -53,6 +53,7 @@ class TestProduct(TestCase):
     def test_populate_product(self):
         """Test populate db with product"""
         nutella = dict(NUTELLA)
+        # Nutriments are modified to be as openfoodfacts
         nutella["nutriments"] = {
             "sugars_100g": 12.8,
             "fat_100g": 8.97,

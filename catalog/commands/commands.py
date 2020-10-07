@@ -21,6 +21,7 @@ def get_better_products(base_product: Product) -> Tuple[List[Product], Product]:
     nutrition_grade: str = base_product.nutrition_grade_fr
     products: List[Product] = []
 
+    # Find products with better nutrition grade for each category
     for category in categories:
         # pylint: disable=expression-not-assigned
         [

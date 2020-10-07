@@ -19,6 +19,7 @@ def populate_product(products: List) -> None:
     list_product: List[Product] = []
     for product in products:
         try:
+            # Create a product for each row in list
             list_product.append(
                 Product(
                     uuid4(),
@@ -27,6 +28,7 @@ def populate_product(products: List) -> None:
                     [
                         {key: value}
                         for key, value in product.get("nutriments").items()
+                        # Verify nutriments are for 100g and part of nutriments dict
                         if key.find("100g") != -1 and key[:-5] in NUTRIMENTS.keys()
                     ],
                     product.get("nutrition_grade_fr"),
@@ -39,6 +41,7 @@ def populate_product(products: List) -> None:
             continue
 
     for product_object in list_product:
+        # Verify product's properties are all set
         if all(
             [
                 product_object.brands,
@@ -90,6 +93,7 @@ def save_favorite(
     :rtype: None
     """
     try:
+        # We verify the product to save have a better nutriscore than the one to replace
         if product_to_save.nutrition_grade_fr < product_to_replace.nutrition_grade_fr:
             Favorite(
                 substitute=product_to_save,
