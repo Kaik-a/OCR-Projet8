@@ -6,10 +6,14 @@
 
 {% block header %}
     <div class="col-lg-10 align-self-end">
-        <h1 class="text-uppercase text-white font-weight-bold">Alternatives au produit "{{ base_product.product_name_fr }}"</h1>
+        <h1 class="aliment-title text-uppercase font-weight-bold">{{ base_product.product_name_fr }}</h1>
         <hr class="divider my-4" />
     </div>
 {% endblock header %}
+
+{% block replace %}
+<h2 class="text-center">Vous pouvez remplacer cet aliment par: </h2>
+{% endblock replace %}
 
 {% block save2 %}
     {% block save %}
