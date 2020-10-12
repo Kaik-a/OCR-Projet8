@@ -16,6 +16,7 @@
 {% block main %}
     <main class="h-100 w-100">
         <div class="container h-75 w-100">
+            {% block replace %}{% endblock replace %}
             <div class="row h-50 w-100">
                 {% for product in page_obj %}
                     {% if forloop.counter|divisibleby:3 %}

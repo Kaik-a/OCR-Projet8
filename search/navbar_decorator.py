@@ -7,7 +7,7 @@ from search.forms import SearchForm
 
 
 def navbar_search_decorator(function):
-    """Decorator to add navbar_search for by decorator"""
+    """Decorator to add navbar_search form by decorator"""
 
     def wrapper(*args, **kwargs):
         if args[0].method == "POST":
