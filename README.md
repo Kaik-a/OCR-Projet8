@@ -17,6 +17,11 @@ You need to export following variables to your environment:
     * SECRET_KEY : Django's secret key
     * SQL_PASSWORD : Password used to connect to postgres' database
 
+Change also mail's variables in ocrProjet8/settings.py such as:
+* ADMINS
+* EMAIL_HOST
+* EMAIL_PORT
+* EMAIL_HOST_USER
 
 ## Commands
 

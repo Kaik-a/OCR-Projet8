@@ -2,11 +2,14 @@
 from datetime import datetime
 
 from catalog.models import Favorite
+from search.views import ProductAutocomplete
 from tests.test_pattern import TestPattern
 
 
 class TestFavorite(TestPattern):
     """Test on Favorites"""
+
+    query_set = ProductAutocomplete().get_queryset()
 
     def test_save_favorite(self):
         """Try to save a Favorite"""

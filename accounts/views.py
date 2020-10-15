@@ -80,6 +80,7 @@ def subscribe(request) -> HttpResponse:
     """
     if request.method == "POST":
         form = SubscribeForm(request.POST)
+
         if form.is_valid():
             try:
                 User.objects.create_user(

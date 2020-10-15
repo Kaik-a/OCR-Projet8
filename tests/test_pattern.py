@@ -6,7 +6,6 @@ from django.test import TestCase
 
 from catalog.models import Product
 from scrapping import NUTELLA
-from search.views import ProductAutocomplete
 
 
 class TestPattern(TestCase):
@@ -28,5 +27,3 @@ class TestPattern(TestCase):
 
         self.product_1.save()
         self.product_2.save()
-
-        self.query_set = ProductAutocomplete().get_queryset()
