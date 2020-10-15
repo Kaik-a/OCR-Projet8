@@ -1,4 +1,4 @@
-"""Tests on account module and authentication"""
+"""Tests on accounts module and authentication"""
 from datetime import datetime
 from uuid import uuid4
 
@@ -20,7 +20,7 @@ class TestUnauthenticated(TestCase):
         """If no user is authenticated, you should not access user_account."""
         url = reverse("accounts:user_account")
         response = self.client.get(url)
-        self.assertTemplateNotUsed(response, "account/user_account.html")
+        self.assertTemplateNotUsed(response, "accounts/user_account.html")
         self.failUnlessEqual(response.status_code, 302)
 
     def test_favorites_while_unauthenticated(self):

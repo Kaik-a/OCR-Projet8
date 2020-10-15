@@ -126,7 +126,7 @@ def sign_out(request) -> HttpResponse:
 @login_required
 def user_account(request) -> HttpResponse:
     """
-    View to get user account.
+    View to get user accounts.
 
     :param request: django request
     :return: HttpResponse

@@ -125,7 +125,7 @@ class SeleniumBasedTestCase(LiveServerTestCase):
         """An user non authenticated shouldn't access to user_account."""
         self.driver.get(self.live_server_url)
 
-        # click on user account
+        # click on user accounts
         self.driver.find_element_by_id("navbar_account").click()
 
         self.assertEqual(self.driver.title, "Login")
