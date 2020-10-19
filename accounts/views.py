@@ -80,6 +80,7 @@ def subscribe(request) -> HttpResponse:
     """
     if request.method == "POST":
         form = SubscribeForm(request.POST)
+
         if form.is_valid():
             try:
                 User.objects.create_user(
@@ -126,7 +127,7 @@ def sign_out(request) -> HttpResponse:
 @login_required
 def user_account(request) -> HttpResponse:
     """
-    View to get user account.
+    View to get user accounts.
 
     :param request: django request
     :return: HttpResponse

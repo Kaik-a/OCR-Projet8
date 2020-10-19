@@ -3,14 +3,14 @@ import unittest.mock as mock
 import uuid
 
 import requests
-from django.test import TestCase
 
-from . import NUTELLA
-from .categories import get_categories
-from .products import get_products
+from scrapping import NUTELLA
+from scrapping.categories import get_categories
+from scrapping.products import get_products
+from tests.test_pattern import TestPattern
 
 
-class TestCategories(TestCase):
+class TestCategories(TestPattern):
     """Tests on categories."""
 
     def test_get_categories(self):
@@ -50,7 +50,7 @@ class TestCategories(TestCase):
         patch.stop()
 
 
-class TestProduct(TestCase):
+class TestProduct(TestPattern):
     """Tests on products."""
 
     def test_get_products(self):

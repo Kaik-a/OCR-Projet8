@@ -24,10 +24,11 @@ SECRET_KEY = os.environ["SECRET_KEY"]
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ADMINS = [("admin", "pur.beurre.mbi@gmail.com")]
+ADMINS = [("admin", "pur.beurre.mbi@gmail.com")]  # change with your own address
 
 ALLOWED_HOSTS = [".localhost", "127.0.0.1", "[::1]"]
 
+# update following variables with your own informations
 EMAIL_SUBJECT_PREFIX = "[Contact]"
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"

@@ -1,11 +1,11 @@
 """Tests for module search"""
-from django.test import TestCase
 from django.urls import reverse
 
 from catalog.models import Product
+from tests.test_pattern import TestPattern
 
 
-class TestSearch(TestCase):
+class TestSearch(TestPattern):
     """Test on search app"""
 
     def setUp(self) -> None:

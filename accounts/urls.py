@@ -1,4 +1,4 @@
-"""Urls for account"""
+"""Urls for accounts"""
 from django.urls import path
 
 from . import views
